@@ -1,0 +1,60 @@
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include <stdio.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <errno.h>
+# include <signal.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include "./libft/libft.h"
+
+extern char **environ;
+
+typedef struct  s_patern
+{
+	char	*command;
+	char	*special_characters;
+	char	*arg;
+}	t_patern;
+
+typedef struct s_func
+{
+	void	*(*func_name)(char ** , ...);
+}	t_func;
+
+typedef struct s_functions
+{
+	t_func	func;
+	char	*arg;
+}	t_functions;
+
+char		*ft_malloc_one(int len);
+char		**ft_malloc_double(int len);
+t_patern	*patern(char **str);
+//void		ft_free(char *str);
+int			special_char_count(char **str);
+int			is_special_char(char *str);
+int			command_count(char **str);
+int			is_command(char *str);
+int			arg_count(char **str);
+void		env(void);
+int			ft_strstr(char *s1, char *s2);
+void		export(char **cmd);
+void    	unset(char **cmd);
+void    	ls(char **cmd);
+char    	*ft_strjoin2(char *s1, char *s2);
+void		*ft_realloc(void *ptr, unsigned int new_size);
+void		ft_grep(char **cmd);
+char		*ft_read(int fd);
+void		ft_cat(char **cmd);
+void		parse_string(char *str);
+void		ft_wc(char **cmd);
+void		ft_pipe(char **cmd, int count);
+void		multiple_waitpid(int *pid, int count);
+void 		ft_multiple_close(int **fd, int len);
+int			ft_fork(void);
+int 		**ft_multiple_fd(int count);
+#endif	
