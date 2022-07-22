@@ -31,16 +31,11 @@ typedef struct s_functions
 	char	*arg;
 }	t_functions;
 
-char		*ft_malloc_one(int len);
-char		**ft_malloc_double(int len);
-t_patern	*patern(char **str);
-//void		ft_free(char *str);
-int			special_char_count(char **str);
-int			is_special_char(char *str);
-int			command_count(char **str);
-int			is_command(char *str);
-int			arg_count(char **str);
-void		env(void);
+// int			command_count(char **str);
+// int			is_command(char *str);
+// int			arg_count(char **str);
+void 		env(char **cmd);
+void 		exit_f(char **cmd);
 int			ft_strstr(char *s1, char *s2);
 void		export(char **cmd);
 void    	unset(char **cmd);
@@ -57,4 +52,5 @@ void		multiple_waitpid(int *pid, int count);
 void 		ft_multiple_close(int **fd, int len);
 int			ft_fork(void);
 int 		**ft_multiple_fd(int count);
+void    	ft_echo(char **cmd);
 #endif	

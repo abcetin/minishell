@@ -10,11 +10,16 @@ static int where(char **s1, char *s2)
     return (i);
 }
 
-void env(void)
+void env(char **cmd)
 {
     int i;
 
     i = 0;
+    if (cmd[1])
+    {
+        write(STDOUT_FILENO, "too many arguments\n", 19);
+        return ;
+    }
     while (environ[i])
         printf("%s\n", environ[i++]);
 }
