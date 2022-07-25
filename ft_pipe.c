@@ -1,14 +1,5 @@
 #include "minishell.h"
 
-// int ft_write(int fd, void *ptr, unsigned int size)
-// {
-// 	if (write(fd, ptr, size) < 0)
-// 	{
-// 		perror("write : ");
-// 		return 0;
-// 	}
-// 	return (1);
-// }
 void ft_multiple_close(int **fd, int len)
 {
 	int i;
@@ -107,10 +98,3 @@ void ft_pipe(char **cmd, int count)
 	ft_multiple_close(fd, count);
 	multiple_waitpid(pid, count + 1);
 }
-// int main()
-// {
-// 	char *cmd = "cat asd.txt | grep 1 | grep 2 | grep 3 | wc";
-// 	char **cmd2 = ft_split(cmd, 124);
-// 	//ft_pipe(cmd2, 4);
-// 	parse_string(cmd);
-// }

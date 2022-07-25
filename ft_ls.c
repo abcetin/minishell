@@ -8,7 +8,7 @@ void    ls(char **cmd)
     pid = fork();
     if (pid == 0)
     {
-        arg[0] = "/usr/bin/ls";
+        arg[0] = "/bin/ls";
         if (cmd[1] != NULL)
             arg[1] = cmd[1];
         else

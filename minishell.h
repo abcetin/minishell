@@ -13,12 +13,12 @@
 
 extern char **environ;
 
-typedef struct  s_patern
+typedef struct s_cmd
 {
-	char	*command;
-	char	*special_characters;
-	char	*arg;
-}	t_patern;
+	char	*cmd;
+	char	**option;
+	char	**arg;
+}	t_cmd;
 
 typedef struct s_func
 {
@@ -31,9 +31,6 @@ typedef struct s_functions
 	char	*arg;
 }	t_functions;
 
-// int			command_count(char **str);
-// int			is_command(char *str);
-// int			arg_count(char **str);
 void 		env(char **cmd);
 void 		exit_f(char **cmd);
 int			ft_strstr(char *s1, char *s2);
@@ -53,4 +50,6 @@ void 		ft_multiple_close(int **fd, int len);
 int			ft_fork(void);
 int 		**ft_multiple_fd(int count);
 void    	ft_echo(char **cmd);
+t_cmd		*parse_cmd(char **cmd);
+void		ft_free_str(char **str);
 #endif	
