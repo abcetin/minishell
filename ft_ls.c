@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    ls(char **cmd)
+void    ls(t_cmd **cmd)
 {
     int pid;
     char *arg[3];
@@ -9,8 +9,8 @@ void    ls(char **cmd)
     if (pid == 0)
     {
         arg[0] = "/bin/ls";
-        if (cmd[1] != NULL)
-            arg[1] = cmd[1];
+        if ((*cmd)->option[0] != NULL)
+            arg[1] = (*cmd)->option[0];
         else
             arg[1] = NULL;
         arg[2] =  NULL;

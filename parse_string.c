@@ -1,35 +1,5 @@
 #include "minishell.h"
 
-void exit_f(char **cmd)
-{
-	if (cmd[1])
-	{
-		write(STDOUT_FILENO, "too many arguments\n", 19);
-		return;
-	}
-	exit(EXIT_SUCCESS);
-}
-
-void pwd(char **cmd)
-{
-	char cwd[256];
-
-	if (cmd[1] != NULL)
-	{
-		printf("pwd : too many arguments\n");
-		return;
-	}
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
-}
-
-void cd(char **cmd)
-{
-	if (cmd[1] == NULL)
-		chdir(getenv("HOME"));
-	else if (chdir(cmd[1]))
-		perror("");
-}
-
 void set_funcs(t_functions *func)
 {
 	func[0] = (t_functions){{(void *)pwd}, "pwd"};
@@ -46,24 +16,35 @@ void set_funcs(t_functions *func)
 	func[11] = (t_functions){{NULL}, NULL};
 }
 
-void *get_func(t_functions *function, char **cmd)
+
+static char *to_lower_str(char *str)
 {
 	int i;
-	void *ret;
 
-	ret = NULL;
+	i = 0;
+	while (str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	return (str);
+}
+
+void	get_func(t_functions *function, t_cmd *cmd)
+{
+	int i;
+
 	i = 0;
 	while (function[i].arg != NULL)
 	{
-		if (ft_strstr(function[i].arg, cmd[0]))
+		if (ft_strstr(function[i].arg, to_lower_str(cmd->cmd)))
 		{
-			ret = function[i].func.func_name(cmd);
-			return (ret);
+			function[i].func.func_name(&cmd);
+			return ;
 		}
 		i++;
 	}
-	printf("command '%s' not found\n", cmd[0]);
-	return (ret);
+	printf("command '%s' not found\n", cmd->cmd);
 }
 
 void with_pipe(char *str)
@@ -102,20 +83,27 @@ void semicolon(char *str)
 
 void parse_string(char *str)
 {
-	char **cmd;
-	t_functions function[12];
+	char		**temp;
+	t_cmd		cmd;
+	t_functions	function[12];
 
+	cmd.option = NULL;
+	cmd.arg = NULL;
 	if (!str)
 	    return;
 	set_funcs(function);
 	if (ft_strchr(str, ';'))
 		semicolon(str);
-	else if (ft_strchr(str, '|') != 0)
+	else if (ft_strchr(str, '|'))
 		with_pipe(str);
 	else
 	{
-		cmd = ft_split(str, 32);
-		get_func(function, cmd);
-		ft_free_str(cmd);
+		temp = split2(str);
+		cmd.cmd = temp[0];
+		option(temp, &cmd);
+		arg(temp, &cmd);
+		get_func(function, &cmd);
+		ft_free_str(cmd.arg);
+		ft_free_str(cmd.option);
 	}
 }

@@ -9,40 +9,29 @@ int check_option(char **str)
 	ret = 1;
 	while (str[i])
 	{
-		if (ft_strstr(str[i], "-n"))
+		if (ft_strnstr(str[i], "-n", ft_strlen(str[i])))
 			ret++;
 		i++;
 	}
 	return (ret);
 }
 
-void ft_echo(char **cmd)
+void ft_echo(t_cmd **cmd)
 {
 	int		i;
 	int		new_line;
-	char	*str;
 
-	i = check_option(cmd);
+	i = check_option((*cmd)->option);
 	new_line = i;
-	while (cmd[i])
+	while ((*cmd)->arg[i])
 	{
-		if (cmd[i][0] == '$')
-		{
-			str = getenv(&cmd[i][1]);
-			if (!str)
-			{
-				perror("");
-				return ;
-			}
-			else
-				write(STDOUT_FILENO, getenv(&cmd[i][1]), ft_strlen(getenv(&cmd[i][1])));
-		}
+		if ((*cmd)->arg[i][0] == '$')
+			write(STDOUT_FILENO, sequence((*cmd)->arg[i]), ft_strlen(sequence((*cmd)->arg[i])));
 		else
-			write(STDOUT_FILENO, cmd[i], ft_strlen(cmd[i]));
-		if (cmd[i + 1] != NULL)
+			write(STDOUT_FILENO, (*cmd)->arg[i], ft_strlen((*cmd)->arg[i]));
+		if ((*cmd)->arg[i + 1] != NULL)
 			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
-	if (new_line == 1)
-		write(STDOUT_FILENO, "\n", 1);
+	write(STDOUT_FILENO, "\n", 1);
 }

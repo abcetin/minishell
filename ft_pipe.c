@@ -68,6 +68,7 @@ void	multiple_waitpid(int *pid, int count)
 	i = 0;
 	while (i < count)
 	{
+		//printf("%d\n", pid[i]);
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
@@ -78,8 +79,8 @@ void ft_pipe(char **cmd, int count)
 	int	*pid;
 	int i;
 
-	pid = malloc(sizeof(int) * count);
-	fd = ft_multiple_fd(count);
+	pid = malloc(sizeof(int) * count + 1);
+	fd = ft_multiple_fd(count + 1);
 	i = -1;
 	while (++i <= count)
 	{
@@ -90,11 +91,11 @@ void ft_pipe(char **cmd, int count)
 				dup2(fd[i - 1][0], STDIN_FILENO);
 			if (i != count)
 				dup2(fd[i][1], STDOUT_FILENO);
-			ft_multiple_close(fd, count);
+			ft_multiple_close(fd, count + 1);
 			parse_string(cmd[i]);
 			exit(0);
 		}
 	}
-	ft_multiple_close(fd, count);
+	ft_multiple_close(fd, count + 1);
 	multiple_waitpid(pid, count + 1);
 }

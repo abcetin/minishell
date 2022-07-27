@@ -4,9 +4,13 @@ static void	print_grep(int fd, char *grep)
 {
 	char	**str;
 	int		i;
+	char	c;
 
+	c = 34;
 	str = ft_split(ft_read(fd), '\n');
 	i = 0;
+	if (grep[0] == c)
+		grep = ft_strtrim(grep, &c);
 	while (str[i])
 	{
 		if (ft_strnstr(str[i], grep, ft_strlen(str[i])) != 0)
@@ -41,10 +45,10 @@ static void	with_file(char **cmd)
 	}
 }
 
-void ft_grep(char **cmd)
+void ft_grep(t_cmd **cmd)
 {
-	if (cmd[2] != NULL)
-		with_file(cmd);
+	if ((*cmd)->arg[1] != NULL)
+		with_file((*cmd)->arg);
 	else
-		print_grep(STDIN_FILENO, cmd[1]);
+		print_grep(STDIN_FILENO, (*cmd)->arg[0]);
 }

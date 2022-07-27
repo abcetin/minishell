@@ -10,67 +10,71 @@ static int where(char **s1, char *s2)
 	return (i);
 }
 
-void env(char **cmd)
+void env(t_cmd **cmd)
 {
 	int i;
 
 	i = 0;
-	if (cmd[1])
+	if ((*cmd)->option != NULL)
 	{
-		write(STDOUT_FILENO, "too many arguments\n", 19);
+		write(STDOUT_FILENO, "with no options\n", 15);
 		return;
 	}
 	while (environ[i])
 		printf("%s\n", environ[i++]);
-	printf("count %d\n", i);
 }
 
-int check_env_arg(char **str)
+int check_env_arg(t_cmd **cmd)
 {
 	int i;
 
 	i = 0;
-	while (str[i])
+	if ((*cmd)->option != NULL)
 	{
-		if (ft_strchr(str[i], '0') == 0)
+		write(STDOUT_FILENO, "with no options\n", 15);
+		return (0);
+	}
+	while ((*cmd)->arg[i])
+	{
+		if (ft_strchr((*cmd)->arg[i], '=') == 0)
+		{
+			printf("'%s' not a valid identifier\n", (*cmd)->arg[i]);
 			return (0);
+		}
 		i++;
 	}
 	return (i);
 }
 
-void export(char **cmd)
+void export(t_cmd **cmd)
 {
 	int count;
 	int arg_index;
 	int i;
 
 	if (!check_env_arg(cmd))
-	{
-		printf("'%s' not a valid identifier\n", cmd[1]);
 		return ;
-	}
 	i = 1;
 	count = 0;
 	while (environ[count])
 		count++;
-	while (cmd[i])
+	while ((*cmd)->arg[i])
 	{
-		arg_index = where(environ, ft_split(cmd[i], '=')[0]);
+		arg_index = where(environ, ft_split((*cmd)->arg[i], '=')[0]);
 		if (arg_index == count)
 		{
-			environ[count] = malloc(ft_strlen(cmd[i]));
-			environ[count] = cmd[i];
+			environ[count] = malloc(ft_strlen((*cmd)->arg[i]));
+			environ[count] = (*cmd)->arg[i];
 			environ[count + 1] = NULL;
 		}
 		else
-			environ[arg_index] = cmd[i];
+			environ[arg_index] = (*cmd)->arg[i];
 		i++;
 		count++;
 	}
 }
 
-void unset(char **cmd)
+void unset(t_cmd **cmd)
 {
 	int i;
 	int j;
@@ -81,7 +85,7 @@ void unset(char **cmd)
 	j = 0;
 	while (environ[count])
 		count++;
-	i = where(environ, cmd[1]);
+	i = where(environ, (*cmd)->arg[0]);
 	if (i == count)
 		return;
 	count = 0;

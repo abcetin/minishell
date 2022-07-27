@@ -21,24 +21,28 @@ static void print_e(int fd)
 	ft_free_str(str);
 }
 
-static int check_arg_e(char **cmd)
+static int check_arg_e(t_cmd **cmd)
 {
 	int i;
 	int fd;
 
-	i = 1;
-	if (ft_strstr(cmd[1], "-e") && cmd[2] != NULL)
+	i = 0;
+
+	if (ft_strnstr((*cmd)->option[0], "-e", ft_strlen((*cmd)->option[0])) && (*cmd)->arg[0] != NULL)
 	{
-		while (cmd[i + 1])
+		printf("%s\n", (*cmd)->arg[0]);
+		while ((*cmd)->arg[i])
 		{
-			fd = open(cmd[i + 1], O_RDONLY);
+			fd = open((*cmd)->arg[i], O_RDONLY);
+			if (fd < 0)
+				return (0);
 			print_e(fd);
 			close(fd);
 			i++;
 		}
 		return (1);
 	}
-	else if (ft_strstr(cmd[1], "-e") && cmd[2] == NULL)
+	else if (ft_strnstr((*cmd)->option[0], "-e", ft_strlen((*cmd)->option[0])) && (*cmd)->arg[0] == NULL)
 	{
 		print_e(STDIN_FILENO);
 		return (1);
@@ -46,25 +50,28 @@ static int check_arg_e(char **cmd)
 	return (0);
 }
 
-void ft_cat(char **cmd)
+void ft_cat(t_cmd **cmd)
 {
 	char **str;
 	int fd;
 	int i;
 	int	j;
 
-	i = 1;
-	if (check_arg_e(cmd))
+	i = 0;
+	if ((*cmd)->option != NULL)
+	{
+		check_arg_e(cmd);
 		return;
+	}
 	else
 	{
-		while (cmd[i])
+		while ((*cmd)->arg[i])
 		{
 			j = 0;
-			fd = open(cmd[i], O_RDONLY);
+			fd = open((*cmd)->arg[i], O_RDONLY);
 			if (fd < 0)
 			{
-				perror(cmd[i]);
+				perror((*cmd)->arg[i]);
 				return ;
 			}
 			str = ft_split(ft_read(fd), '\n');

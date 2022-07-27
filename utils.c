@@ -1,10 +1,40 @@
 #include "minishell.h"
 
-void	ft_free_str(char **str)
+char	*sequence(char *str)
+{
+	char	**temp;
+	char	*ret;
+	int		i;
+
+	i = 0;
+	ret = NULL;
+	temp = ft_split(str, '/');
+	while (temp[i])
+	{
+		if (temp[i][0] == '$')
+		{
+			temp[i] = getenv(&temp[i][1]);
+			if (!temp[i])
+			{
+				perror("");
+				return (NULL);
+			}
+		}
+		ret = ft_strjoin2(ret, temp[i]);
+		if (temp[i + 1])
+			ret = ft_strjoin2(ret, "/");
+		i++;
+	}
+	return (ret);
+}
+
+void ft_free_str(char **str)
 {
 	int i;
 
 	i = -1;
+	if (!str)
+		return ;
 	while (str[++i])
 		free(str[i]);
 	free(str);

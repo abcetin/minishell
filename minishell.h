@@ -22,7 +22,7 @@ typedef struct s_cmd
 
 typedef struct s_func
 {
-	void	*(*func_name)(char ** , ...);
+	void	*(*func_name)(t_cmd **, ...);
 }	t_func;
 
 typedef struct s_functions
@@ -31,25 +31,36 @@ typedef struct s_functions
 	char	*arg;
 }	t_functions;
 
-void 		env(char **cmd);
-void 		exit_f(char **cmd);
-int			ft_strstr(char *s1, char *s2);
-void		export(char **cmd);
-void    	unset(char **cmd);
-void    	ls(char **cmd);
-char    	*ft_strjoin2(char *s1, char *s2);
-void		*ft_realloc(void *ptr, unsigned int new_size);
-void		ft_grep(char **cmd);
-char		*ft_read(int fd);
-void		ft_cat(char **cmd);
-void		parse_string(char *str);
-void		ft_wc(char **cmd);
-void		ft_pipe(char **cmd, int count);
+void 		env(t_cmd **cmd);
+void 		exit_f(t_cmd **cmd);
+void		export(t_cmd **cmd);
+void		unset(t_cmd **cmd);
+void		ls(t_cmd **cmd);
+void		cd(t_cmd **cmd);
+void		pwd(t_cmd **cmd);
+void		exit_f(t_cmd **cmd);
+void		ft_grep(t_cmd **cmd);
+void		ft_cat(t_cmd **cmd);
+void		ft_wc(t_cmd **cmd);
+void		ft_echo(t_cmd **cmd);
+
+
+//-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
 void 		ft_multiple_close(int **fd, int len);
 int			ft_fork(void);
 int 		**ft_multiple_fd(int count);
-void    	ft_echo(char **cmd);
-t_cmd		*parse_cmd(char **cmd);
+char		*ft_strjoin2(char *s1, char *s2);
+char		*ft_read(int fd);
+void		ft_pipe(char **cmd, int count);
 void		ft_free_str(char **str);
+char		*sequence(char *str);
+char		**split2(char *str);
+void		option(char **str, t_cmd *cmd);
+void		arg(char **str, t_cmd *cmd);
+int			ft_strstr(char *s1, char *s2);
+
+//-------------main process--------------//
+void		parse_string(char *str);
+
 #endif	
