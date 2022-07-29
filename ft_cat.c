@@ -1,9 +1,16 @@
 #include "minishell.h"
 
-void ft_write(char *str)
+void ft_write(char **str)
 {
-	write(STDOUT_FILENO, str, ft_strlen(str));
-	write(STDOUT_FILENO, "\n", 1);
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		write(STDOUT_FILENO, str[i], ft_strlen(str[i]));
+		write(STDOUT_FILENO, "\n", 1);
+		i++;
+	}
 }
 
 static void print_e(int fd)
@@ -11,13 +18,11 @@ static void print_e(int fd)
 	int j;
 	char **str;
 
-	j = 0;
+	j = -1;
 	str = ft_split(ft_read(fd), '\n');
-	while (str[j])
-	{
-		ft_write(ft_strjoin(str[j], "$"));
-		j++;
-	}
+	while (str[++j])
+		str[j] = ft_strjoin(str[j], "$");
+	ft_write(str);
 	ft_free_str(str);
 }
 
@@ -52,10 +57,8 @@ static int check_arg_e(t_cmd **cmd)
 
 void ft_cat(t_cmd **cmd)
 {
-	char **str;
 	int fd;
 	int i;
-	int	j;
 
 	i = 0;
 	if ((*cmd)->option != NULL)
@@ -63,25 +66,23 @@ void ft_cat(t_cmd **cmd)
 		check_arg_e(cmd);
 		return;
 	}
+	else if ((*cmd)->arg[0] == NULL)
+	{
+		ft_write(ft_split(ft_read(STDIN_FILENO), '\n'));
+		return ;
+	}
 	else
 	{
 		while ((*cmd)->arg[i])
 		{
-			j = 0;
 			fd = open((*cmd)->arg[i], O_RDONLY);
 			if (fd < 0)
 			{
 				perror((*cmd)->arg[i]);
 				return ;
 			}
-			str = ft_split(ft_read(fd), '\n');
-			while (str[j])
-			{
-				ft_write(str[j]);
-				j++;
-			}
+			ft_write(ft_split(ft_read(fd), '\n'));
 			close(fd);
-			ft_free_str(str);
 			i++;
 		}
 	}

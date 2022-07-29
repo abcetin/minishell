@@ -9,19 +9,15 @@ static int count(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == 34)
-		{
+		while (str[i] == 34 || str[i] == 39 || str[i] == 32)
 			i++;
-			while (str[i] && str[i] != 34)
-				i++;
-			j++;
-		}
-		if (str[i] && str[i] == 32 && str[i + 1] != 32)
-			j++;
 		if (str[i])
+			j++;
+		while (str[i] && str[i] != 34 &&
+			str[i] != 39 && str[i] != 32)
 			i++;
 	}
-	return (j + 1);
+	return (j);
 }
 
 int find_char(char *str, char c)
@@ -42,28 +38,32 @@ char **split2(char *str)
 {
 	char **ret;
 	int i;
-	int start;
+	int j;
 	int ret_index;
 
-	start = 0;
 	i = 0;
+	j = -1;
 	ret_index = 0;
-	ret = (char **)malloc((count(str)) * sizeof(char *) + 1);
+	ret = (char **)malloc((count(str) + 1) * sizeof(char *));
 	if (!ret)
 		return (NULL);
-	while (str[i])
+	while (++j < count(str))
 	{
+		while(str[i] == 32)
+			i++;
+		if (i == first_index(str) && first_index(str) != 0)
+		{	
+			ret[ret_index] = ft_substr(str, first_index(str),
+				(last_index(str) - first_index(str) + 1));
+			i = last_index(str) + 1;
+			ret_index++;
+		}
 		if (str[i] && str[i] != 32)
 		{
-			i = find_char(&str[i], 32) + i;
-			ret[ret_index] = ft_substr(str, start, i - start);
+			ret[ret_index] = ft_substr(str, i, find_char(&str[i], 32));
+			i += find_char(&str[i], 32);
 			ret_index++;
-			start = ++i;
 		}
-		if (str[i] == 34)
-			i = find_char(&str[i + 1], 34) + i + 1;
-		if (str[i] == 32)
-			start = ++i;
 	}
 	ret[ret_index] = NULL;
 	return (ret);

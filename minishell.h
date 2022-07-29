@@ -31,6 +31,9 @@ typedef struct s_functions
 	char	*arg;
 }	t_functions;
 
+
+void		loop();
+
 void 		env(t_cmd **cmd);
 void 		exit_f(t_cmd **cmd);
 void		export(t_cmd **cmd);
@@ -59,6 +62,13 @@ char		**split2(char *str);
 void		option(char **str, t_cmd *cmd);
 void		arg(char **str, t_cmd *cmd);
 int			ft_strstr(char *s1, char *s2);
+char		*clear_quate(char *str);
+int			quate_count(char *str);
+int			first_index(char *str);
+int			first_quate(char *str);
+int			last_index(char *str);
+int			find_char(char *str, char c);
+void		print_all(char *str);
 
 //-------------main process--------------//
 void		parse_string(char *str);

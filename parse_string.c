@@ -84,11 +84,12 @@ void semicolon(char *str)
 void parse_string(char *str)
 {
 	char		**temp;
-	t_cmd		cmd;
+	t_cmd		*cmd;
 	t_functions	function[12];
 
-	cmd.option = NULL;
-	cmd.arg = NULL;
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	cmd->option = NULL;
+	cmd->arg = NULL;
 	if (!str)
 	    return;
 	set_funcs(function);
@@ -99,11 +100,11 @@ void parse_string(char *str)
 	else
 	{
 		temp = split2(str);
-		cmd.cmd = temp[0];
-		option(temp, &cmd);
-		arg(temp, &cmd);
-		get_func(function, &cmd);
-		ft_free_str(cmd.arg);
-		ft_free_str(cmd.option);
+		cmd->cmd = temp[0];
+		option(temp, cmd);
+		arg(temp, cmd);
+		get_func(function, cmd);
+		ft_free_str(cmd->arg);
+		ft_free_str(cmd->option);
 	}
 }

@@ -68,7 +68,6 @@ void	multiple_waitpid(int *pid, int count)
 	i = 0;
 	while (i < count)
 	{
-		//printf("%d\n", pid[i]);
 		waitpid(pid[i], NULL, 0);
 		i++;
 	}
