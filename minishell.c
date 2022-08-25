@@ -15,13 +15,13 @@ void loop(void)
 		{
 			add_history(input);
 			parse_string(input);
+			free(input);
 		}
 	}
 }
 
 int main(void)
 {
-
-	// signal(SIGQUIT, handler);
 	loop();
+	//parse_string("cd ..");
 }
