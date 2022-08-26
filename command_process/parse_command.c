@@ -9,8 +9,10 @@ int word_count(char *str, char c)
 	ret = 0;
 	while (str[i])
 	{
-		if (str[i + 1] != c && str[i] == c && !quote_state(str, i))
-		 	ret++;
+		while (str[i] && str[i] == c)
+			i++;
+		if (str[i] && str[i - 1] == c  && !quote_state(str, i))
+			ret++;
 		i++;
 	}
 	return (ret + 1);
@@ -46,7 +48,7 @@ char **split2(char *str, char c)
 	{
 		while (str[i] == c)
 			i++;
-		if (str[i] == 34 || str[i] == 39)
+		if (str[i] == first_quote(str))
 			i += cut_str(&str[i], &ret[++ret_index], c);
 		else if (str[i] != c && str[i] != 34 && str[i] != 39)
 			i += cut_str(&str[i], &ret[++ret_index], c);
@@ -70,7 +72,7 @@ void option(char **str, t_cmd *cmd)
 	}
 	if (count > 0)
 	{
-		cmd->option = (char **)malloc((count * sizeof(char *)) + 1);
+		cmd->option = (char **)malloc((count + 1) * sizeof(char *));
 		i = 1;
 		count = 0;
 		while (str[i])
@@ -96,17 +98,20 @@ void arg(char **str, t_cmd *cmd)
 			count++;
 		i++;
 	}
-	cmd->arg = (char **)malloc((count * sizeof(char *)) + 1);
-	i = 1;
-	count = 0;
-	while (str[i])
+	if (count > 0)
 	{
-		if (str[i][0] != '-')
+		cmd->arg = (char **)malloc((count + 1) * sizeof(char *));
+		i = 1;
+		count = 0;
+		while (str[i])
 		{
-			cmd->arg[count] = ft_strdup(str[i]);
-			count++;
+			if (str[i][0] != '-')
+			{
+				cmd->arg[count] = ft_strdup(str[i]);
+				count++;
+			}
+			i++;
 		}
-		i++;
+		cmd->arg[count] = NULL;
 	}
-	cmd->arg[count] = NULL;
 }

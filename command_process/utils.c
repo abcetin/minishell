@@ -25,7 +25,6 @@ char *sequence(char *str) // bunu kontrol et
 			ret = ft_strjoin2(ret, "/");
 		i++;
 	}
-	printf("%s\n", ret);
 	return (ret);
 }
 

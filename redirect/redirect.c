@@ -31,6 +31,29 @@ void clear_file(char *path)
 		perror("");
 }
 
+// void right_redirect(char *cmd)
+// {
+// 	char **file;
+// 	char **temp_cmd;
+// 	int i;
+
+// 	i = 1;
+// 	if (ft_strchr(cmd, '>'))
+// 	{
+// 		temp_cmd = split2(cmd, '>');
+// 		file = split2(&temp_cmd[1], 32);
+// 		while (file[i])
+// 		{
+// 			if (file[1])
+// 			{
+// 				temp_cmd[0] = ft_strjoin(temp_cmd[0], " ");
+// 				temp_cmd[0] = ft_strjoin(temp_cmd[0], file[1]);
+// 			}
+// 			i++;
+// 		}
+// 	}
+// }
+
 void single_right_redirect(char *cmd, char **path)
 {
 	int file;
@@ -48,18 +71,9 @@ void single_right_redirect(char *cmd, char **path)
 		{
 			dup2(file, 1);
 			close(file);
-			parse_string(cmd);
+			//parse_string(cmd);
 		}
 		wait(NULL);
 		i++;
 	}
 }
-
-
-// int main()
-// {
-// 	char *path[3] = {"asd.txt jahsgdjgasghd", "deneme.txt jhasdjhgasjgd", NULL};
-// 	char *cmd = "echo deniz > test.txt askdalks";
-// 	int len = char_count(cmd, '>');
-
-// }

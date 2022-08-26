@@ -2,7 +2,7 @@
 
 void exit_f(t_cmd **cmd)
 {
-	if ((*cmd)->option != NULL)
+	if ((*cmd)->arg != NULL || (*cmd)->option != NULL)
 	{
 		write(STDOUT_FILENO, "too many arguments\n", 19);
 		return;

@@ -35,7 +35,6 @@ static int check_arg_e(t_cmd **cmd)
 	
 	if (ft_strnstr((*cmd)->option[0], "-e", ft_strlen((*cmd)->option[0])) && (*cmd)->arg[0] != NULL)
 	{
-		//printf("%s\n", (*cmd)->arg[0]);
 		while ((*cmd)->arg[i])
 		{
 			fd = open((*cmd)->arg[i], O_RDONLY);
@@ -63,8 +62,8 @@ void ft_cat(t_cmd **cmd)
 	i = 0;
 	if ((*cmd)->option != NULL)
 		check_arg_e(cmd);
-	// else if ((*cmd)->arg[0] == NULL)
-	// 	ft_write(ft_split(ft_read(STDIN_FILENO), '\n')); argüman verilmezse stdin den oku ama çalışmıyor
+	if ((*cmd)->arg == NULL)
+		ft_write(ft_split(ft_read(STDOUT_FILENO), '\0')); // argüman verilmezse stdin den oku ama çalışmıyor
 	else
 	{
 		while ((*cmd)->arg[i])

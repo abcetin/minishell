@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	quote_state(char *str, int pos) // "'$PATH asd'" bu gibi durumlar için modifiye et
+int	quote_state(char *str, int pos)
 {
 	int ret;
 	int i;
@@ -9,9 +9,9 @@ int	quote_state(char *str, int pos) // "'$PATH asd'" bu gibi durumlar için modi
 	i = 0;
 	while (str[i] && i < pos)
 	{
-		if ((str[i] == 34 || str[i] == 39) && ret == 0)
+		if (first_quote(str) == str[i] && ret == 0)
 			ret = 1;
-		else if ((str[i] == 34 || str[i] == 39) && ret == 1)
+		else if (first_quote(str) == str[i] && ret == 1)
 			ret = 0;
 		i++;
 	}
@@ -95,8 +95,7 @@ char *clear_quote(char *str)
 
 	quote_len = char_count(str, 34) + char_count(str, 39);
 	len = ft_strlen(str);
-	printf("%d\n",len);
-	ret = (char *)ft_calloc(sizeof(char), (len - quote_len));
+	ret = (char *)ft_calloc(sizeof(char), (len - quote_len) + 1);
 	i = -1;
 	j = 0;
 	while (str[++i])
@@ -106,7 +105,5 @@ char *clear_quote(char *str)
 		else
 			ret[j++] = str[i];
 	}
-	write(1, ret, ft_strlen(ret));
-	write(1, "\n", 1);
 	return (ret);
 }

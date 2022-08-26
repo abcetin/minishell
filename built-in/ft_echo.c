@@ -25,10 +25,16 @@ void ft_echo(t_cmd **cmd)
 
 	i = 0;
 	new_line = check_option((*cmd)->option);
+	if (!(*cmd)->arg)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return;
+	}
 	while ((*cmd)->arg[i])
 	{
 		print_all((*cmd)->arg[i]);
-		write(STDOUT_FILENO, " ", 1);
+		if ((*cmd)->arg[i + 1])
+			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
 	if (new_line == 0)
