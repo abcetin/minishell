@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+#include <dirent.h>
 # include "./libft/libft.h"
 
 extern char **environ;
@@ -18,6 +19,7 @@ typedef struct s_cmd
 	char	*cmd;
 	char	**option;
 	char	**arg;
+	char	**file;
 	//int		error_status;
 }	t_cmd;
 
@@ -39,13 +41,13 @@ void 		env(t_cmd **cmd);
 void 		exit_f(t_cmd **cmd);
 void		export(t_cmd **cmd);
 void		unset(t_cmd **cmd);
-void		ls(t_cmd **cmd);
+//void		ls(t_cmd **cmd);
 void		cd(t_cmd **cmd);
 void		pwd(t_cmd **cmd);
 void		exit_f(t_cmd **cmd);
-void		ft_grep(t_cmd **cmd);
-void		ft_cat(t_cmd **cmd);
-void		ft_wc(t_cmd **cmd);
+//void		ft_grep(t_cmd **cmd);
+//void		ft_cat(t_cmd **cmd);
+//void		ft_wc(t_cmd **cmd);
 void		ft_echo(t_cmd **cmd);
 int			ft_execve(t_cmd **cmd);
 
@@ -78,5 +80,7 @@ int			quote_state(char *str, int pos);
 int			word_count(char *str, char c);
 //void		single_right_redirect(char *path);
 void		parse_string(char *str);
+int 		redirect(char *cmd);
+char		*where(char *cmd);
 
 #endif	

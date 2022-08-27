@@ -11,11 +11,12 @@ int word_count(char *str, char c)
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		if (str[i] && str[i - 1] == c  && !quote_state(str, i))
+		if (str[i] && !quote_state(str, i))
 			ret++;
-		i++;
+		while (str[i] && str[i] != c)
+			i++;
 	}
-	return (ret + 1);
+	return (ret);
 }
 
 int cut_str(char *dst, char **src, char c)
@@ -46,7 +47,7 @@ char **split2(char *str, char c)
 	ret = malloc(sizeof(char *) * (word_count(str, c) + 1));
 	while (++len < word_count(str, c))
 	{
-		while (str[i] == c)
+		while (str[i] && str[i] == c)
 			i++;
 		if (str[i] == first_quote(str))
 			i += cut_str(&str[i], &ret[++ret_index], c);
@@ -57,7 +58,7 @@ char **split2(char *str, char c)
 	return (ret);
 }
 
-void option(char **str, t_cmd *cmd)
+void option(char **str, t_cmd *cmd) // echo -a asdasd -a burda ikinci -a option değil ona kurgula
 {
 	int i;
 	int count;

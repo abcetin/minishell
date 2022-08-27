@@ -24,12 +24,12 @@ void set_funcs(t_functions *func)
 	func[3] = (t_functions){{(void *)env}, "env"};
 	func[4] = (t_functions){{(void *)export}, "export"};
 	func[5] = (t_functions){{(void *)unset}, "unset"};
-	func[6] = (t_functions){{(void *)ls}, "ls"};
-	func[7] = (t_functions){{(void *)ft_cat}, "cat"};
-	func[8] = (t_functions){{(void *)ft_grep}, "grep"};
-	func[9] = (t_functions){{(void *)ft_wc}, "wc"};
-	func[10] = (t_functions){{(void *)ft_echo}, "echo"};
-	func[11] = (t_functions){{NULL}, NULL};
+	//func[6] = (t_functions){{(void *)ls}, "ls"};
+	//func[6] = (t_functions){{(void *)ft_cat}, "cat"};
+	//func[8] = (t_functions){{(void *)ft_grep}, "grep"};
+	//func[9] = (t_functions){{(void *)ft_wc}, "wc"};
+	func[6] = (t_functions){{(void *)ft_echo}, "echo"};
+	func[7] = (t_functions){{NULL}, NULL};
 }
 
 void get_func(t_cmd *cmd)

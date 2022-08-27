@@ -4,16 +4,8 @@ void with_pipe(char *str)
 {
 	int count;
 	char **cmd;
-	int i;
 
-	count = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '|')
-			count++;
-		i++;
-	}
+	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	ft_pipe(cmd, count);
 	ft_free_str(cmd);
@@ -24,15 +16,21 @@ void parse_string(char *str)
 	char **temp;
 	t_cmd cmd;
 
-	cmd.option = NULL;
-	cmd.arg = NULL;
+	temp = NULL;
 	if (!str)
 		return;
-	temp = split2(str, 32);
 	if (word_count(str, '|') > 1)
 		with_pipe(str);
+	else if (redirect(str))
+		return ;
 	else
 	{
+		// if (!ft_strchr(str, 34) || !ft_strchr(str, 39))
+		// 	temp = ft_split(str, 32);
+		// else
+		temp = split2(str, 32);
+		cmd.option = NULL;
+		cmd.arg = NULL;
 		cmd.cmd = ft_strdup(temp[0]);
 		option(temp, &cmd);
 		arg(temp, &cmd);
@@ -40,6 +38,6 @@ void parse_string(char *str)
 		free(cmd.cmd);
 		ft_free_str(cmd.arg);
 		ft_free_str(cmd.option);
+		ft_free_str(temp);
 	}
-	ft_free_str(temp);
 }
