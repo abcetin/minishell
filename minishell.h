@@ -82,5 +82,6 @@ int			word_count(char *str, char c);
 void		parse_string(char *str);
 int 		redirect(char *cmd);
 char		*where(char *cmd);
+void		ft_free_cmd(t_cmd *cmd);
 
 #endif	

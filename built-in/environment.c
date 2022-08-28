@@ -13,11 +13,10 @@ static int where_env(char *s2)
 		env = split2(environ[i], '=');
 		if (ft_strstr(env[0], temp[0]))
 			break;
-		//free(env);
+		ft_free_str(env);
 		i++;
 	}
-	free(env);
-	free(temp);
+	ft_free_str(temp);
 	return (i);
 }
 
@@ -41,7 +40,7 @@ static int is_alnum(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]))
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
@@ -67,7 +66,7 @@ int check_env_arg(t_cmd **cmd)
 			printf("'%s' not a valid identifier\n", (*cmd)->arg[i]);
 			return (0);
 		}
-		free(arg);
+		ft_free_str(arg);
 		i++;
 	}
 	return (i);

@@ -66,6 +66,13 @@ void ft_free_str(char **str)
 	free(str);
 }
 
+void ft_free_cmd(t_cmd *cmd)
+{
+	ft_free_str(cmd->arg);
+	ft_free_str(cmd->option);
+	free(cmd->cmd);
+}
+
 char *ft_read(int fd)
 {
 	char *str;

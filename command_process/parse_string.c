@@ -22,12 +22,9 @@ void parse_string(char *str)
 	if (word_count(str, '|') > 1)
 		with_pipe(str);
 	else if (redirect(str))
-		return ;
+		return;
 	else
 	{
-		// if (!ft_strchr(str, 34) || !ft_strchr(str, 39))
-		// 	temp = ft_split(str, 32);
-		// else
 		temp = split2(str, 32);
 		cmd.option = NULL;
 		cmd.arg = NULL;
@@ -35,7 +32,6 @@ void parse_string(char *str)
 		option(temp, &cmd);
 		arg(temp, &cmd);
 		get_func(&cmd);
-		free(cmd.cmd);
 		ft_free_str(cmd.arg);
 		ft_free_str(cmd.option);
 		ft_free_str(temp);

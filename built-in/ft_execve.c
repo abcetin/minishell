@@ -14,7 +14,7 @@ int command_count(t_cmd *cmd)
 	while (cmd->option != NULL && cmd->option[i])
 		i++;
 	ret += i;
-	return (ret);
+	return (ret + 1);
 }
 
 char **join_cmd(t_cmd **cmd)
@@ -25,7 +25,7 @@ char **join_cmd(t_cmd **cmd)
 	i = 0;
 	j = 1;
 	
-	str = malloc(sizeof(char *) * command_count(*cmd) + 1);
+	str = malloc(sizeof(char *) * (command_count(*cmd) + 1));
 	if (!ft_strchr((*cmd)->cmd, '/'))
 	{
 		str[0] = ft_strjoin(where((*cmd)->cmd), "/");
@@ -41,6 +41,8 @@ char **join_cmd(t_cmd **cmd)
 	while ((*cmd)->arg != NULL && (*cmd)->arg[i])
 		str[j++] = ft_strdup((*cmd)->arg[i++]);
 	str[j] = NULL;
+	ft_free_cmd(*cmd);
+	//free(cmd);
 	return (str);
 }
 
@@ -61,11 +63,11 @@ int ft_execve(t_cmd **cmd)
 	if (pid == 0)
 	{
 		x = execve(arg[0], arg, environ);
-		if (x < 1)
+		if (x == -1)
 			perror("");
 		exit(0);
 	}
-	ft_free_str(arg);
 	wait(NULL);
+	ft_free_str(arg);
 	return (x);
 }
