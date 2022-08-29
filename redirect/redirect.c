@@ -45,15 +45,15 @@ static char **parsing_redirect(char **cmd)
 		temp = split2(cmd[i], 32);
 		while (temp[j])
 		{
-			cmd[0] = ft_strjoin(cmd[0], " ");
-			cmd[0] = ft_strjoin(cmd[0], temp[j]);
+			cmd[0] = ft_strjoin2(cmd[0], " ");
+			cmd[0] = ft_strjoin2(cmd[0], temp[j]);
 			free(cmd[i]);
 			cmd[i] = ft_strdup(temp[0]);
 			if (temp[j + 1])
-				cmd[0] = ft_strjoin(cmd[0], " ");
+				cmd[0] = ft_strjoin2(cmd[0], " ");
 			j++;
 		}
-		ft_free_str(temp);
+		ft_free_double((void **)temp);
 		i++;
 	}
 	return (cmd);
@@ -118,7 +118,7 @@ int redirect(char *cmd)
 			double_right_redirect(temp);
 		else if (ft_strnstr(cmd, ">", ft_strlen(cmd)))
 			single_right_redirect(temp);
-		ft_free_str(temp);
+		ft_free_double((void **)temp);
 		return (1);
 	}
 	return (0);

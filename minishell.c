@@ -7,7 +7,7 @@ void loop(void)
 
 	getenv("LOGNAME");
 	user = ft_strjoin("\033[0;36m", getenv("LOGNAME"));
-	user = ft_strjoin(user, " %\e[0m ");
+	user = ft_strjoin2(user, " %\e[0m ");
 	while (1)
 	{
 		input = readline(user);
@@ -15,13 +15,13 @@ void loop(void)
 		{
 			add_history(input);
 			parse_string(input);
-			free(input);
 		}
+		free(input);
 	}
 }
 
 int main(void)
 {
 	loop();
-	//parse_string("cd ..");
+	//parse_string("export | grep z");
 }

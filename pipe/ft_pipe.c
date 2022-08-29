@@ -97,4 +97,6 @@ void ft_pipe(char **cmd, int count)
 	}
 	ft_multiple_close(fd, count + 1);
 	multiple_waitpid(pid, count + 1);
+	free(fd);
+	free(pid);
 }

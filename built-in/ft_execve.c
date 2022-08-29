@@ -1,59 +1,38 @@
 #include "../minishell.h"
 
-int command_count(t_cmd *cmd)
+char **join_cmd(char *cmd, t_list *lst)
 {
-	int i;
-	int ret;
-
-	ret = 0;
-	i = 0;
-	while (cmd->arg != NULL && cmd->arg[i])
-		i++;
-	ret += i;
-	i = 0;
-	while (cmd->option != NULL && cmd->option[i])
-		i++;
-	ret += i;
-	return (ret + 1);
-}
-
-char **join_cmd(t_cmd **cmd)
-{
-	int i, j;
 	char **str;
+	int j;
 
-	i = 0;
 	j = 1;
-	
-	str = malloc(sizeof(char *) * (command_count(*cmd) + 1));
-	if (!ft_strchr((*cmd)->cmd, '/'))
+	str = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 1));
+	if (!ft_strchr(cmd, '/'))
 	{
-		str[0] = ft_strjoin(where((*cmd)->cmd), "/");
-		str[0] = ft_strjoin(str[0], (*cmd)->cmd);
+		str[0] = ft_strjoin2(where(cmd), "/");
+		str[0] = ft_strjoin2(str[0], cmd);
 		if (!str[0])
 			return (NULL);
 	}
 	else
-		str[0] = ft_strdup((*cmd)->cmd);
-	while ((*cmd)->option != NULL && (*cmd)->option[i])
-		str[j++] = ft_strdup((*cmd)->option[i++]);
-	i = 0;
-	while ((*cmd)->arg != NULL && (*cmd)->arg[i])
-		str[j++] = ft_strdup((*cmd)->arg[i++]);
+		str[0] = ft_strdup(cmd);
+	while (lst)
+	{
+		str[j++] = ft_strdup(lst->content);
+		lst = lst->next;
+	}
 	str[j] = NULL;
-	ft_free_cmd(*cmd);
-	//free(cmd);
 	return (str);
 }
 
-int ft_execve(t_cmd **cmd)
+int ft_execve(t_cmd *cmd)
 {
 	int pid;
 	char **arg;
 	int x;
 
 	x = 0;
-	arg = join_cmd(cmd);
+	arg = join_cmd(cmd->cmd, cmd->command);
 	if (!arg)
 	{
 		printf("command not found\n");
@@ -68,6 +47,6 @@ int ft_execve(t_cmd **cmd)
 		exit(0);
 	}
 	wait(NULL);
-	ft_free_str(arg);
+	ft_free_double((void **)arg);
 	return (x);
 }

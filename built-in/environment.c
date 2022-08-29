@@ -12,22 +12,25 @@ static int where_env(char *s2)
 	{
 		env = split2(environ[i], '=');
 		if (ft_strstr(env[0], temp[0]))
+		{
+			ft_free_double((void **)env);
 			break;
-		ft_free_str(env);
+		}
+		ft_free_double((void **)env);
 		i++;
 	}
-	ft_free_str(temp);
+	ft_free_double((void **)temp);
 	return (i);
 }
 
-void env(t_cmd **cmd)
+void env(t_cmd *cmd)
 {
 	int i;
 
 	i = 0;
-	if ((*cmd)->option != NULL)
+	if (cmd->command)
 	{
-		write(STDOUT_FILENO, "with no options\n", 15);
+		write(STDOUT_FILENO, "with no options\n", 16);
 		return;
 	}
 	while (environ[i])
@@ -46,84 +49,76 @@ static int is_alnum(char *str)
 	}
 	return (1);
 }
-int check_env_arg(t_cmd **cmd)
+int check_env_arg(t_cmd *cmd)
 {
-	int i;
 	char **arg;
-	i = 0;
-	if ((*cmd)->option != NULL)
+	// if ((*cmd)->option != NULL)
+	// {
+	// 	write(STDOUT_FILENO, "with no options\n", 15);
+	// 	return (0);
+	// }
+	arg = split2(cmd->command->content, '=');
+	if (!ft_strchr(cmd->command->content, '=') || !arg[1] || !is_alnum(arg[0]))
 	{
-		write(STDOUT_FILENO, "with no options\n", 15);
+		printf("'%s' not a valid identifier\n", cmd->command->content);
 		return (0);
 	}
-	while ((*cmd)->arg[i])
-	{
-		arg = split2((*cmd)->arg[i], '=');
-		if (!ft_strchr((*cmd)->arg[i], '=') ||
-			(*cmd)->arg[i][ft_strlen((*cmd)->arg[i]) - 1] == '='
-			|| !is_alnum(arg[0]))
-		{
-			printf("'%s' not a valid identifier\n", (*cmd)->arg[i]);
-			return (0);
-		}
-		ft_free_str(arg);
-		i++;
-	}
-	return (i);
+	ft_free_double((void **)arg);
+	return (1);
 }
 
-void export(t_cmd **cmd)
+void export(t_cmd *cmd)
 {
 	int count;
 	int arg_index;
-	int i;
 
-	if (!(*cmd)->arg)
-		env(cmd);
-	if (!check_env_arg(cmd))
-		return ;
-	i = 0;
-	count = 0;
-	while (environ[count])
-		count++;
-	while ((*cmd)->arg[i])
+	if (!cmd->command)
 	{
-		arg_index = where_env((*cmd)->arg[i]);
-		if (arg_index == count)
-		{
-			environ[count] =ft_strdup((*cmd)->arg[i]);
-			environ[count + 1] = NULL;
-		}
-		else
-			environ[arg_index] = ft_strdup((*cmd)->arg[i]);
-		i++;
-		count++;
+		env(cmd);
+		return ;
 	}
-}
-
-void unset(t_cmd **cmd)
-{
-	int i;
-	int j;
-	int count;
-
-	i = 0;
-	count = 0;
-	j = 0;
-	while (environ[count])
-		count++;
-	i = where_env((*cmd)->arg[0]);
-	if (i == count)
+	if (!check_env_arg(cmd))
 		return;
 	count = 0;
-	while (environ[j])
+	while (environ[count])
+		count++;
+	while (cmd->command)
 	{
-		if (i != j)
+		arg_index = where_env(cmd->command->content);
+		if (arg_index == count)
 		{
-			environ[count] = environ[j];
-			count++;
+			environ[count++] = ft_strdup(cmd->command->content);
+			environ[count] = NULL;
 		}
-		j++;
+		else
+			environ[arg_index] = ft_strdup(cmd->command->content);
+		cmd->command = cmd->command->next;
 	}
-	environ[count] = NULL;
 }
+
+// void unset(t_cmd **cmd) listeeye göre optimize et
+// {
+// 	int i;
+// 	int j;
+// 	int count;
+
+// 	i = 0;
+// 	count = 0;
+// 	j = 0;
+// 	while (environ[count])
+// 		count++;
+// 	i = where_env();
+// 	if (i == count)
+// 		return;
+// 	count = 0;
+// 	while (environ[j])
+// 	{
+// 		if (i != j)
+// 		{
+// 			environ[count] = environ[j];
+// 			count++;
+// 		}
+// 		j++;
+// 	}
+// 	environ[count] = NULL;
+// }

@@ -1,41 +1,41 @@
 #include "../minishell.h"
 
-int check_option(char **str)
+int check_option(t_list **lst)
 {
 	int i;
 	int ret;
 
 	i = 0;
 	ret = 0;
-	if (!str)
+	if (!(*lst))
 		return (0);
-	while (str[i])
+	else if (ft_strstr("-n", (*lst)->content))
 	{
-		if (ft_strnstr(str[i], "-n", ft_strlen(str[i])))
-			ret++;
-		i++;
+		lst_find(lst, "-n");
+		return(1);
 	}
-	return (ret);
+	else
+		return(0);
 }
 
-void ft_echo(t_cmd **cmd)
+void ft_echo(t_cmd *cmd)
 {
 	int		i;
 	int		new_line;
 
 	i = 0;
-	new_line = check_option((*cmd)->option);
-	if (!(*cmd)->arg)
+	new_line = check_option(&cmd->command);
+	if (!cmd->command->content)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		return;
 	}
-	while ((*cmd)->arg[i])
+	while (cmd->command)
 	{
-		print_all((*cmd)->arg[i]);
-		if ((*cmd)->arg[i + 1])
+		print_all(cmd->command->content);
+		if (cmd->command->next != NULL)
 			write(STDOUT_FILENO, " ", 1);
-		i++;
+		cmd->command = cmd->command->next;
 	}
 	if (new_line == 0)
 		write(STDOUT_FILENO, "\n", 1);

@@ -37,40 +37,19 @@ int ft_isspace(char str)
 	return (0);
 }
 
-// int ft_doublestrchr(char **str, char c)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (ft_strchr(str[i], c) && ft_strlen(str[i]) == 1)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-void ft_free_str(char **str)
+void ft_free_double(void **pointer)
 {
 	int i;
 
 	i = 0;
-	if (!str)
+	if (!*pointer)
 		return;
-	while (str[i])
+	while (pointer[i])
 	{
-		free(str[i]);
+		free(pointer[i]);
 		i++;
 	}
-	free(str);
-}
-
-void ft_free_cmd(t_cmd *cmd)
-{
-	ft_free_str(cmd->arg);
-	ft_free_str(cmd->option);
-	free(cmd->cmd);
+	//free(pointer);
 }
 
 char *ft_read(int fd)
@@ -108,5 +87,6 @@ char *ft_strjoin2(char *s1, char *s2)
 	while (s2[j] != '\0')
 		str[i++] = s2[j++];
 	str[i] = '\0';
+	free(s1);
 	return (str);
 }

@@ -8,13 +8,14 @@ void with_pipe(char *str)
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	ft_pipe(cmd, count);
-	ft_free_str(cmd);
+	ft_free_double((void **)cmd);
+	free(cmd);
 }
 
 void parse_string(char *str)
 {
 	char **temp;
-	t_cmd cmd;
+	t_cmd *cmd;
 
 	temp = NULL;
 	if (!str)
@@ -25,15 +26,18 @@ void parse_string(char *str)
 		return;
 	else
 	{
+		cmd = malloc(sizeof(t_cmd));
+		cmd->command = (t_list *)malloc(sizeof(t_list));
+		cmd->command = NULL;
 		temp = split2(str, 32);
-		cmd.option = NULL;
-		cmd.arg = NULL;
-		cmd.cmd = ft_strdup(temp[0]);
-		option(temp, &cmd);
-		arg(temp, &cmd);
-		get_func(&cmd);
-		ft_free_str(cmd.arg);
-		ft_free_str(cmd.option);
-		ft_free_str(temp);
+		cmd->cmd = ft_strdup(temp[0]);
+		add_to_list(temp, &cmd->command);
+		//free(temp);
+		get_func(cmd);
+		if (!cmd->command)
+			free(cmd->command);
+		ft_free_double((void **)temp);
+		//cmd->command = NULL;
+		free(cmd->cmd);
 	}
 }

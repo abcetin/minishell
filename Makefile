@@ -9,7 +9,7 @@ all : run
 run : makediff
 	@$(CC) -o $(NAME) $(FILES) $(CFLAGS) $(LIBFT) -lreadline
 makediff :
-	@make -C libft
+	@make bonus -C libft
 
 clear :
 	@rm -rf $(NAME)

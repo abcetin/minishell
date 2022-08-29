@@ -49,70 +49,20 @@ char **split2(char *str, char c)
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		if (str[i] == first_quote(str))
+		if (str[i] == 34 || str[i] == 39)
 			i += cut_str(&str[i], &ret[++ret_index], c);
-		else if (str[i] != c && str[i] != 34 && str[i] != 39)
+		else if (str[i] != c)
 			i += cut_str(&str[i], &ret[++ret_index], c);
 	}
 	ret[++ret_index] = NULL;
 	return (ret);
 }
 
-void option(char **str, t_cmd *cmd) // echo -a asdasd -a burda ikinci -a option değil ona kurgula
+void	add_to_list(char **temp, t_list **cmd)
 {
 	int i;
-	int count;
 
 	i = 1;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i][0] == '-')
-			count++;
-		i++;
-	}
-	if (count > 0)
-	{
-		cmd->option = (char **)malloc((count + 1) * sizeof(char *));
-		i = 1;
-		count = 0;
-		while (str[i])
-		{
-			if (str[i][0] == '-')
-				cmd->option[count++] = ft_strdup(str[i]);
-			i++;
-		}
-		cmd->option[count] = NULL;
-	}
-}
-
-void arg(char **str, t_cmd *cmd)
-{
-	int i;
-	int count;
-
-	i = 1;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i][0] != '-')
-			count++;
-		i++;
-	}
-	if (count > 0)
-	{
-		cmd->arg = (char **)malloc((count + 1) * sizeof(char *));
-		i = 1;
-		count = 0;
-		while (str[i])
-		{
-			if (str[i][0] != '-')
-			{
-				cmd->arg[count] = ft_strdup(str[i]);
-				count++;
-			}
-			i++;
-		}
-		cmd->arg[count] = NULL;
-	}
+	while (temp[i])
+		ft_lstadd_back(cmd, ft_lstnew(temp[i++]));	
 }
