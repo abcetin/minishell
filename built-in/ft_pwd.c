@@ -1,10 +1,10 @@
 #include "../minishell.h"
 
-void pwd(t_cmd *cmd)
+void pwd(t_cmd cmd)
 {
 	char cwd[256];
 
-	if (cmd->command)
+	if (cmd.command)
 	{
 		printf("with no options \n");
 		return;

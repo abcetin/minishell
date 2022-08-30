@@ -1,5 +1,5 @@
 #include "../minishell.h"
-
+#include <string.h>
 int find_path(char *path, char *cmd)
 {
 	struct dirent *de;
@@ -23,23 +23,22 @@ int find_path(char *path, char *cmd)
 char *where(char *cmd)
 {
 	char **temp;
+	//char *command;
 	char *ret;
-	char *path;
 	int i;
 
-	path = getenv("PATH");
-	temp = ft_split(path, ':');
-	//free(path);
+	temp = ft_split(getenv("PATH"), ':');
 	i = -1;
 	while (temp[++i])
 	{
 		if (find_path(temp[i], cmd))
 		{
-			ret = ft_strdup(temp[i]);
-			ft_free_double((void **)temp);
+			ret = strdup(temp[i]);
+			ft_free_double(temp);
 			return (ret);
 		}
 	}
-	ft_free_double((void **)temp);
-	return(0);
+	ft_free_double(temp);
+	//free(cmd);
+	return(NULL);
 }

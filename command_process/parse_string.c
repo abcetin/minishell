@@ -8,36 +8,31 @@ void with_pipe(char *str)
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	ft_pipe(cmd, count);
-	ft_free_double((void **)cmd);
-	free(cmd);
+	ft_free_double(cmd);
 }
 
 void parse_string(char *str)
 {
 	char **temp;
-	t_cmd *cmd;
+	t_cmd cmd;
 
 	temp = NULL;
 	if (!str)
 		return;
-	if (word_count(str, '|') > 1)
+	if (char_count(str, '|'))
 		with_pipe(str);
-	else if (redirect(str))
-		return;
+	else if (ft_strchr(str, '>') || ft_strchr(str, '<'))
+		redirect(str);
 	else
 	{
-		cmd = malloc(sizeof(t_cmd));
-		cmd->command = (t_list *)malloc(sizeof(t_list));
-		cmd->command = NULL;
 		temp = split2(str, 32);
-		cmd->cmd = ft_strdup(temp[0]);
-		add_to_list(temp, &cmd->command);
-		//free(temp);
+		cmd.command = (t_list *)malloc(sizeof(t_list));
+		cmd.command = NULL;
+		cmd.cmd = ft_strdup(temp[0]);
+		add_to_list(temp, &cmd.command);
+		ft_free_double(temp);
 		get_func(cmd);
-		if (!cmd->command)
-			free(cmd->command);
-		ft_free_double((void **)temp);
-		//cmd->command = NULL;
-		free(cmd->cmd);
+		free(cmd.cmd);
+		ft_lstclear(&cmd.command, free);
 	}
 }

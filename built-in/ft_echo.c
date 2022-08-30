@@ -7,35 +7,35 @@ int check_option(t_list **lst)
 
 	i = 0;
 	ret = 0;
-	if (!(*lst))
-		return (0);
-	else if (ft_strstr("-n", (*lst)->content))
+	if (ft_strstr("-n", (*lst)->content))
 	{
 		lst_find(lst, "-n");
-		return(1);
+		return (1);
 	}
 	else
-		return(0);
+		return (0);
 }
 
-void ft_echo(t_cmd *cmd)
+void ft_echo(t_cmd cmd)
 {
-	int		i;
-	int		new_line;
+	int i;
+	int new_line;
 
 	i = 0;
-	new_line = check_option(&cmd->command);
-	if (!cmd->command->content)
+	if (cmd.command)
+		new_line = check_option(&cmd.command);
+	if (!cmd.command)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		return;
 	}
-	while (cmd->command)
+	while (cmd.command)
 	{
-		print_all(cmd->command->content);
-		if (cmd->command->next != NULL)
+		cmd.command->content = clear_quote(cmd.command->content);
+		print_all(cmd.command->content);
+		if (cmd.command->next != NULL)
 			write(STDOUT_FILENO, " ", 1);
-		cmd->command = cmd->command->next;
+		cmd.command = cmd.command->next;
 	}
 	if (new_line == 0)
 		write(STDOUT_FILENO, "\n", 1);

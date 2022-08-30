@@ -28,8 +28,8 @@ int **ft_multiple_fd(int count)
 	int **fd;
 
 	i = 0;
-	fd = malloc(sizeof(int *) * count);
-	while (i < count)
+	fd = malloc(sizeof(int *) * count + 1);
+	while (i <= count)
 	{
 		fd[i] = malloc(sizeof(int) * 2);
 		if (!fd[i])
@@ -40,7 +40,7 @@ int **ft_multiple_fd(int count)
 		i++;
 	}
 	i = 0;
-	while (i < count)
+	while (i <= count)
 	{
 		if (pipe(fd[i]) < 0)
 			perror("pipe ");
@@ -97,6 +97,6 @@ void ft_pipe(char **cmd, int count)
 	}
 	ft_multiple_close(fd, count + 1);
 	multiple_waitpid(pid, count + 1);
-	free(fd);
+	ft_free_int(fd, count + 1);
 	free(pid);
 }

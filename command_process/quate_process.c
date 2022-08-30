@@ -27,10 +27,12 @@ void print_all(char *str)
 	int		quote;
 
 	i = 0;
-	quote = first_quote(str);
-	str = clear_quote(str);
+	quote = 0;
+	//str = clear_quote(str);
 	while (str[i] != '\0')
 	{
+		if (str[i] == 34 || str[i] == 39)
+			quote = str[i];
 		if (str[i] == '$' && quote != 39)
 			i +=  dolar_sign(&str[i]);
 		else

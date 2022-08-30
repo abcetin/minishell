@@ -25,6 +25,7 @@ char *sequence(char *str) // bunu kontrol et
 			ret = ft_strjoin2(ret, "/");
 		i++;
 	}
+	ft_free_double(temp);
 	return (ret);
 }
 
@@ -35,21 +36,6 @@ int ft_isspace(char str)
 	else if (str == '\t')
 		return (1);
 	return (0);
-}
-
-void ft_free_double(void **pointer)
-{
-	int i;
-
-	i = 0;
-	if (!*pointer)
-		return;
-	while (pointer[i])
-	{
-		free(pointer[i]);
-		i++;
-	}
-	//free(pointer);
 }
 
 char *ft_read(int fd)

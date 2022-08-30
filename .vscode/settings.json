@@ -25,6 +25,8 @@
         "__config": "c",
         "__locale": "c",
         "optional": "c",
-        "complex": "c"
+        "complex": "c",
+        "memory": "c",
+        "libft.h": "c"
     }
 }

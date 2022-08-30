@@ -17,10 +17,15 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 	size_t	i;
 
-	i = ft_strlen(s1);
-	s2 = (char *)malloc(sizeof(char) * (i + 1));
+	s2 = malloc(sizeof(char) * (ft_strlen(s1) + 1));
 	if (!s2)
-		return (0);
-	ft_strlcpy(s2, (char *)s1, i + 1);
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
 	return (s2);
 }

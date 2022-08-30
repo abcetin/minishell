@@ -23,5 +23,5 @@ void loop(void)
 int main(void)
 {
 	loop();
-	//parse_string("export | grep z");
+	//parse_string("cat > files1 minishell.h >> files2 < minishell.h < minishell.c");
 }

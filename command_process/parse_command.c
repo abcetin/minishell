@@ -49,20 +49,9 @@ char **split2(char *str, char c)
 	{
 		while (str[i] && str[i] == c)
 			i++;
-		if (str[i] == 34 || str[i] == 39)
-			i += cut_str(&str[i], &ret[++ret_index], c);
-		else if (str[i] != c)
+		if (str[i] != c)
 			i += cut_str(&str[i], &ret[++ret_index], c);
 	}
 	ret[++ret_index] = NULL;
 	return (ret);
-}
-
-void	add_to_list(char **temp, t_list **cmd)
-{
-	int i;
-
-	i = 1;
-	while (temp[i])
-		ft_lstadd_back(cmd, ft_lstnew(temp[i++]));	
 }

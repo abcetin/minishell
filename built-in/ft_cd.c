@@ -1,11 +1,15 @@
 #include "../minishell.h"
 
-void cd(t_cmd *cmd)
+void cd(t_cmd cmd)
 {
-	// if ((*cmd)->arg != NULL && ft_strchr((*cmd)->arg[0], '$'))
-	// 	(*cmd)->arg[0] = sequence((*cmd)->arg[0]); //******************buna bak
-	if (cmd->command == NULL)
+	if (cmd.command != NULL && ft_strchr(cmd.command->content, '$'))
+		cmd.command->content = sequence(cmd.command->content); //******************buna bak
+	if (cmd.command == NULL)
 		chdir(getenv("HOME"));
-	else if (chdir(clear_quote(cmd->command->content)))
-		perror("");
+	else
+	{
+		cmd.command->content = clear_quote(cmd.command->content);
+		if (chdir(cmd.command->content) < 0)
+			perror("");
+	}
 }
