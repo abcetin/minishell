@@ -2,7 +2,7 @@
 
 void loop(void)
 {
-	char *input;
+	char *input = NULL;
 	char *user;
 
 	getenv("LOGNAME");
@@ -22,6 +22,7 @@ void loop(void)
 
 int main(void)
 {
+
 	loop();
-	//parse_string("cat > files1 minishell.h >> files2 < minishell.h < minishell.c");
+	//parse_string("ls -l");
 }

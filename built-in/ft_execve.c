@@ -5,7 +5,7 @@ char *update_cmd(char *cmd)
 	char *ret;
 	char *path;
 
-	if (ft_strchr(cmd, '/'))
+	if (ft_strchr2(cmd, '/'))
 	{
 		ret = ft_strdup(cmd);
 		return(ret);
@@ -33,7 +33,7 @@ char **join_cmd(char *cmd, t_list *lst)
 		return (NULL);
 	while (lst)
 	{
-		if (ft_strchr(lst->content, 34) || ft_strchr(lst->content, 39))
+		if (ft_strchr2(lst->content, 34) || ft_strchr2(lst->content, 39))
 			lst->content = clear_quote(lst->content);
 		str[j++] = ft_strdup(lst->content);
 		lst = lst->next;

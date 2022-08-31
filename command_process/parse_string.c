@@ -21,7 +21,7 @@ void parse_string(char *str)
 		return;
 	if (char_count(str, '|'))
 		with_pipe(str);
-	else if (ft_strchr(str, '>') || ft_strchr(str, '<'))
+	else if (ft_strchr2(str, '>') || ft_strchr2(str, '<'))
 		redirect(str);
 	else
 	{
@@ -32,7 +32,7 @@ void parse_string(char *str)
 		add_to_list(temp, &cmd.command);
 		ft_free_double(temp);
 		get_func(cmd);
+		lstclear(cmd.command);
 		free(cmd.cmd);
-		ft_lstclear(&cmd.command, free);
 	}
 }

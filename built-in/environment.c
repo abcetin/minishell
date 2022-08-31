@@ -58,7 +58,7 @@ int check_env_arg(t_cmd cmd)
 	// 	return (0);
 	// }
 	arg = split2(cmd.command->content, '=');
-	if (!ft_strchr(cmd.command->content, '=') || !arg[1] || !is_alnum(arg[0]))
+	if (!ft_strchr2(cmd.command->content, '=') || !arg[1] || !is_alnum(arg[0]))
 	{
 		printf("'%s' not a valid identifier\n", cmd.command->content);
 		return (0);

@@ -12,7 +12,7 @@ int open_file(char *path)
 	int fd;
 
 	if (!path)
-		return(-1);
+		return (-1);
 	if (!is_exist_file(path))
 		fd = open(path, O_RDWR | O_CREAT);
 	else
@@ -90,96 +90,68 @@ char **redirect_split(char *str)
 	return (ret);
 }
 
-
-
-// static char **join_redirect(char **cmd)
-// {
-// 	int i;
-// 	int j;
-// 	char **temp;
-
-// 	i = 1;
-// 	while (cmd[i])
-// 	{
-// 		j = 1;
-// 		temp = split2(cmd[i], 32);
-// 		while (temp[j])
-// 		{
-// 			cmd[0] = ft_strjoin(cmd[0], " ");
-// 			cmd[0] = ft_strjoin(cmd[0], temp[j]);
-// 			free(cmd[i]);
-// 			cmd[i] = ft_strdup(temp[0]);
-// 			j++;
-// 		}
-// 		ft_free_double(temp);
-// 		i++;
-// 	}
-// 	return (cmd);
-// }
-
-void right_redirect(char *cmd, char *file)
+static char **join_redirect(char **cmd)
 {
-	int fd;
-	int pid;
+	int i;
+	int j;
+	char **temp;
 
-	pid = fork();
-	if (pid == 0)
+	i = 1;
+	while (cmd[i])
 	{
-		fd = open_file(file);
-		if (fd < 0)
-			exit(1);
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-		parse_string(cmd);
-		exit(0);
+		j = 1;
+		temp = split2(cmd[i], 32);
+		while (temp[j])
+		{
+			cmd[0] = ft_strjoin(cmd[0], " ");
+			cmd[0] = ft_strjoin(cmd[0], temp[j]);
+			free(cmd[i]);
+			cmd[i] = ft_strdup(temp[0]);
+			j++;
+		}
+		ft_free_double(temp);
+		i++;
 	}
-	wait(NULL);
+	return (cmd);
 }
 
-void single_right_redirect(char *cmd, char *file)
+void right_redirect(char *file)
+{
+	int fd;
+	fd = open_file(file);
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+}
+void single_right_redirect(char *file)
 {
 	char *temp;
 
 	temp = ft_strtrim(file, " ");
 	if (is_exist_file(temp))
 		clear_file(temp);
-	right_redirect(cmd, temp);
+	right_redirect(temp);
 	free(temp);
 }
 
-void double_right_redirect(char *cmd, char *file)
+void double_right_redirect(char *file)
 {
 	char *temp;
 
-	temp = ft_strtrim(file, " "); 
-	right_redirect(cmd, temp);
+	temp = ft_strtrim(file, " ");
+	right_redirect(temp);
 }
 
-void singel_left_redirect(char *cmd, char *file)
+void singel_left_redirect(char *file)
 {
 	int fd;
-	int pid;
 	char *temp;
 
-	if (!file)
-		return ; // hata fırlatma kodu yaz
-	else
-	{
-		temp = ft_strtrim(file, " ");
-		fd = open(temp, O_RDONLY);
-		if (fd < 0)
-			exit(1);
-		free(temp);
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		parse_string(cmd);
-		exit(0);
-	}
-	wait(NULL);
+	temp = ft_strtrim(file, " ");
+	fd = open(temp, O_RDONLY);
+	if (fd < 0)
+		perror(file);
+	free(temp);
+	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
 int find_char(char *str, int c)
@@ -187,7 +159,7 @@ int find_char(char *str, int c)
 	int i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == c)
 			break;
@@ -209,7 +181,7 @@ char **redirect_delimiter(char *cmd)
 	count = -1;
 	while (++len < red_count(cmd))
 	{
-		while(cmd[i] && (cmd[i] != '<' && cmd[i] != '>'))
+		while (cmd[i] && (cmd[i] != '<' && cmd[i] != '>'))
 			i++;
 		j = i;
 		while (cmd[j] && (cmd[j] == '>' || cmd[j] == '<'))
@@ -222,7 +194,7 @@ char **redirect_delimiter(char *cmd)
 	return (str);
 }
 
-int run(char **command, char **delimeter, ) // delimeter a göre yeniden çalıştır....
+int choose_redirect(char **command, char **delimeter) // delimeter a göre yeniden çalıştır....
 {
 	int i;
 	char **temp;
@@ -231,51 +203,36 @@ int run(char **command, char **delimeter, ) // delimeter a göre yeniden çalı�
 	while (delimeter[i])
 	{
 		temp = split2(command[i], 32);
-		if (temp[1])
-
+		if (ft_strstr(delimeter[i], ">"))
+			single_right_redirect(temp[0]);
+		else if (ft_strstr(delimeter[i], ">>"))
+			double_right_redirect(temp[0]);
+		else if (ft_strstr(delimeter[i], "<"))
+			singel_left_redirect(temp[0]);
+		ft_free_double(temp);
+		i++;
 	}
-	return(0);
+	return (0);
 }
 
 int redirect(char *cmd)
 {
 	char **tmp;
-	char **a;
-	int i;
-	int j;
+	char **delimeter;
+	int pid;
 
 	tmp = redirect_split(cmd);
-	a = redirect_delimiter(cmd);
-	//tmp = join_redirect(tmp);
-	i = 0;
-	j = 0;
-	while (tmp[i])
+	tmp = join_redirect(tmp);
+	delimeter = redirect_delimiter(cmd);
+	pid = fork();
+	if (pid == 0)
 	{
-		printf("%s\n", tmp[i++]);
-		// if (cmd[i] == '>' && cmd[i + 1] == '>')
-		// 	double_right_redirect(tmp[0], tmp[j++]);
-		// else if (cmd[i] == '>')
-		// 	single_right_redirect(tmp[0], tmp[j++]);
-		// else if (cmd[i] == '<')
-		// 	singel_left_redirect(tmp[0], tmp[j++]);
-		// i++;
+		choose_redirect(&tmp[1], delimeter);
+		parse_string(tmp[0]);
+		exit(0);
 	}
-	while (a[j])
-		printf("%s\n", a[j++]);
+	wait(NULL);
 	ft_free_double(tmp);
+	ft_free_double(delimeter);
 	return (0);
 }
-
-// int main()
-// {
-// 	char *i;
-// 	i = readline("asdas : ");
-// 	redirect(i);
-// 	char **red;
-// 	// red = split2(i, '>');
-
-// 	// red = right_redirect(red);
-// 	// int j = 0;
-// 	// while (red[j])
-// 	// 	printf("%s\n", red[j++]);
-// }

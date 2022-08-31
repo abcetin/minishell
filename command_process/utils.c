@@ -76,3 +76,12 @@ char *ft_strjoin2(char *s1, char *s2)
 	free(s1);
 	return (str);
 }
+
+int ft_strchr2(char *s, int c)
+{
+	while (*s != '\0' && (char)c != *s)
+		s++;
+	if ((char)c == *s)
+		return (1);
+	return (0);
+}

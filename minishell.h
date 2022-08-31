@@ -23,7 +23,7 @@ typedef struct s_cmd
 
 typedef struct s_func
 {
-	void	*(*func_name)(t_cmd , ...);
+	void	*(*func_name)(t_cmd);
 }	t_func;
 
 typedef struct s_functions
@@ -71,10 +71,12 @@ void		parse_string(char *str);
 int 		redirect(char *cmd);
 char		*where(char *cmd);
 void		ft_free_int(int **pointer, int count);
+int			ft_strchr2(char *s, int c);
 
 
 
 //-----------------------------------------------------//
 void	add_to_list(char **temp, t_list **cmd);
 void	lst_find(t_list **lst, void *data);
+void	lstclear(t_list *lst);
 #endif	

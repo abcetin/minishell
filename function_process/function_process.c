@@ -52,7 +52,7 @@ void get_func(t_cmd cmd)
 		}
 		i++;
 	}
-	free(command);
+	 free(command);
 	if (ret == 0)
 		ft_execve(cmd);
 }

@@ -20,3 +20,16 @@ void	add_to_list(char **temp, t_list **cmd)
 	while (temp[i])
 		ft_lstadd_back(cmd, ft_lstnew(ft_strdup(temp[i++])));
 }
+
+void	lstclear(t_list *lst)
+{
+	t_list	*tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free(tmp->content);
+		free(tmp);
+	}
+}

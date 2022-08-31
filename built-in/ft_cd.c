@@ -2,7 +2,7 @@
 
 void cd(t_cmd cmd)
 {
-	if (cmd.command != NULL && ft_strchr(cmd.command->content, '$'))
+	if (cmd.command != NULL && ft_strchr2(cmd.command->content, '$'))
 		cmd.command->content = sequence(cmd.command->content); //******************buna bak
 	if (cmd.command == NULL)
 		chdir(getenv("HOME"));
