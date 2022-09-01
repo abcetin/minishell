@@ -7,7 +7,7 @@ LIBFT	= libft/libft.a
 all : run
 
 run : makediff
-	@$(CC) -o $(NAME) $(FILES) $(CFLAGS) $(LIBFT) -lreadline
+	@$(CC) -o $(NAME) $(FILES) $(CFLAGS) $(LIBFT) -lreadline -L include/readline/8.1.2/lib -I include/readline/8.1.2/include
 makediff :
 	@make bonus -C libft
 

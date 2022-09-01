@@ -7,5 +7,6 @@ void exit_f(t_cmd cmd)
 		write(STDOUT_FILENO, "too many arguments\n", 19);
 		return;
 	}
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }

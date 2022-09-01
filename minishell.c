@@ -27,7 +27,7 @@ void loop(void)
 		input = rl_gets(input, user);
 		if (!input)
 		{
-			write(2, "exit\n", 6);
+			write(2, "\nexit\n", 6);
 			exit(0);
 		}
 		parse_string(input);

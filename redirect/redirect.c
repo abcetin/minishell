@@ -194,6 +194,27 @@ char **redirect_delimiter(char *cmd)
 	return (str);
 }
 
+void	double_left_redirect(char *eof)
+{
+	char *str;
+	char *input;
+
+	while (1)
+	{
+		input = readline(">");
+		if (!ft_strncmp(input, eof, ft_strlen(eof)))
+			break;
+		else if (ft_strlen(input))
+			str = ft_strjoin2(str, input);
+		free(input);
+	}
+	ft_putstr_fd(str, 1);
+	dup2(STDIN_FILENO, STDOUT_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 int choose_redirect(char **command, char **delimeter) // delimeter a göre yeniden çalıştır....
 {
 	int i;
@@ -208,6 +229,8 @@ int choose_redirect(char **command, char **delimeter) // delimeter a göre yenid
 			double_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], "<"))
 			singel_left_redirect(command[i]);
+		else if (ft_strstr(delimeter[i], "<<"))
+			double_left_redirect(command[i]);
 		i++;
 	}
 	return (0);
@@ -222,7 +245,6 @@ int redirect(char *cmd)
 	tmp = redirect_split(cmd);
 	tmp = join_redirect(tmp);
 	delimeter = redirect_delimiter(cmd);
-	
 	pid = fork();
 	if (pid == 0)
 	{
