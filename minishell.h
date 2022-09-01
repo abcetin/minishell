@@ -78,5 +78,5 @@ int			ft_strchr2(char *s, int c);
 //-----------------------------------------------------//
 void	add_to_list(char **temp, t_list **cmd);
 void	lst_find(t_list **lst, void *data);
-void	lstclear(t_list *lst);
+void	lstclear(t_list **lst);
 #endif	

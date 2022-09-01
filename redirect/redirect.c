@@ -197,19 +197,17 @@ char **redirect_delimiter(char *cmd)
 int choose_redirect(char **command, char **delimeter) // delimeter a göre yeniden çalıştır....
 {
 	int i;
-	char **temp;
+	//char **temp;
 
 	i = 0;
 	while (delimeter[i])
 	{
-		temp = split2(command[i], 32);
 		if (ft_strstr(delimeter[i], ">"))
-			single_right_redirect(temp[0]);
+			single_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], ">>"))
-			double_right_redirect(temp[0]);
+			double_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], "<"))
-			singel_left_redirect(temp[0]);
-		ft_free_double(temp);
+			singel_left_redirect(command[i]);
 		i++;
 	}
 	return (0);
@@ -224,6 +222,7 @@ int redirect(char *cmd)
 	tmp = redirect_split(cmd);
 	tmp = join_redirect(tmp);
 	delimeter = redirect_delimiter(cmd);
+	
 	pid = fork();
 	if (pid == 0)
 	{

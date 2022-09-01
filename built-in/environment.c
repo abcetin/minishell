@@ -96,7 +96,7 @@ void export(t_cmd cmd)
 	}
 }
 
-// void unset(t_cmd **cmd) listeeye göre optimize et
+// void unset(t_cmd **cmd)
 // {
 // 	int i;
 // 	int j;

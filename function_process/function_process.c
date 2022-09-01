@@ -1,22 +1,22 @@
 #include "../minishell.h"
 
-// static char *to_lower_str(char *str)
-// {
-// 	int i;
-// 	char *ret;
+static char *to_lower_str(char *str)
+{
+	int i;
+	char *ret;
 
-// 	i = 0;
-// 	if (!str)
-// 		return (str);
-// 	while (str[i])
-// 	{
-// 		str[i] = ft_tolower(str[i]);
-// 		i++;
-// 	}
-// 	ret = ft_strdup(str);
-// 	//free(str);
-// 	return (ret);
-// }
+	i = 0;
+	if (!str)
+		return (str);
+	while (str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	ret = ft_strdup(str);
+	free(str);
+	return (ret);
+}
 
 
 void set_funcs(t_functions *func)
@@ -41,7 +41,7 @@ void get_func(t_cmd cmd)
 	i = 0;
 	ret = 0;
 	set_funcs(function);
-	command = ft_strtrim(cmd.cmd, " ");
+	command = to_lower_str(ft_strtrim(cmd.cmd, " "));
 	while (function[i].arg != NULL)
 	{
 		if (ft_strstr(function[i].arg, command))

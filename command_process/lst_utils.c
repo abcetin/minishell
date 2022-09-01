@@ -21,15 +21,18 @@ void	add_to_list(char **temp, t_list **cmd)
 		ft_lstadd_back(cmd, ft_lstnew(ft_strdup(temp[i++])));
 }
 
-void	lstclear(t_list *lst)
+void	lstclear(t_list **lst)
 {
 	t_list	*tmp;
+	t_list	**temp;
 
-	while (lst)
+	temp = lst;
+	while (*lst)
 	{
-		tmp = lst;
-		lst = lst->next;
+		tmp = (*lst);
+		(*lst) = (*lst)->next;
 		free(tmp->content);
 		free(tmp);
 	}
+	//free(temp);
 }

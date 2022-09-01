@@ -7,6 +7,7 @@ void with_pipe(char *str)
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
+
 	ft_pipe(cmd, count);
 	ft_free_double(cmd);
 }
@@ -32,7 +33,7 @@ void parse_string(char *str)
 		add_to_list(temp, &cmd.command);
 		ft_free_double(temp);
 		get_func(cmd);
-		lstclear(cmd.command);
+		lstclear(&cmd.command);
 		free(cmd.cmd);
 	}
 }
