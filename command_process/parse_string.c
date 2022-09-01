@@ -27,7 +27,6 @@ void parse_string(char *str)
 	else
 	{
 		temp = split2(str, 32);
-		cmd.command = (t_list *)malloc(sizeof(t_list));
 		cmd.command = NULL;
 		cmd.cmd = ft_strdup(temp[0]);
 		add_to_list(temp, &cmd.command);

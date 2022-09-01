@@ -24,9 +24,7 @@ void	add_to_list(char **temp, t_list **cmd)
 void	lstclear(t_list **lst)
 {
 	t_list	*tmp;
-	t_list	**temp;
 
-	temp = lst;
 	while (*lst)
 	{
 		tmp = (*lst);
@@ -34,5 +32,4 @@ void	lstclear(t_list **lst)
 		free(tmp->content);
 		free(tmp);
 	}
-	//free(temp);
 }
