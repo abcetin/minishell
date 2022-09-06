@@ -18,7 +18,7 @@ void parse_string(char *str)
 	t_cmd cmd;
 
 	temp = NULL;
-	if (!str)
+	if (!ft_strlen(str))
 		return;
 	if (char_count(str, '|'))
 		with_pipe(str);

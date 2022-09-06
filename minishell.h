@@ -15,6 +15,7 @@
 
 extern char **environ;
 
+
 typedef struct s_cmd
 {
 	char	*cmd;
@@ -34,15 +35,17 @@ typedef struct s_functions
 
 //-------------main process--------------//
 void		loop();
+//char		*rl_gets(char *str, const char *prompt);
+
 //-------------built-in--------------//
 void 		env(t_cmd cmd);
 void 		exit_f(t_cmd cmd);
 void		export(t_cmd cmd);
-//void		unset(t_cmd *cmd);
+void		unset(t_cmd cmd);
 void		cd(t_cmd cmd);
 void		pwd(t_cmd cmd);
 void		ft_echo(t_cmd cmd);
-int			ft_execve(t_cmd cmd);
+int		ft_execve(t_cmd cmd);
 
 //-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
@@ -59,24 +62,41 @@ int			ft_strstr(char *s1, char *s2);
 char		*clear_quote(char *str);
 int			char_count(char *str, char c);
 int			first_quote(char *str);
-void		print_all(char *str);
+void		print_all(char *str, int quote);
 int			ft_isspace(char str);
 void		set_funcs(t_functions *func);
 void		get_func(t_cmd cmd);
 int			dolar_sign(char *str);
 int			quote_state(char *str, int pos);
 int			word_count(char *str, char c);
-//void		single_right_redirect(char *path);
 void		parse_string(char *str);
 int 		redirect(char *cmd);
 char		*where(char *cmd);
 void		ft_free_int(int **pointer, int count);
 int			ft_strchr2(char *s, int c);
+int			ft_double_strlen(char **str);
+void		*ft_realloc(void *ptr, size_t size);
+int			is_alnum(char *str);
+int			find_char(char *str, int c);
+int			exit_status(int status, int flag, char *message);
 
-
+//------------------redirect-------------------//
+int			is_exist_file(char *path);
+int			open_file(char *path);
+void		clear_file(char *path);
+int			red_count(char *str);
+int			cut_red(char *dst, char **src);
+char		**redirect_split(char *str);
+char		**join_redirect(char **cmd);
+char		**redirect_delimiter(char *cmd);
+void		right_redirect(char *file);
+void		single_right_redirect(char *file);
+void		double_right_redirect(char *file);
+void		singel_left_redirect(char *file);
+void		double_left_redirect(char *eof);
 
 //-----------------------------------------------------//
 void	add_to_list(char **temp, t_list **cmd);
-void	lst_find(t_list **lst, void *data);
+int		lst_find(t_list **lst, void *data);
 void	lstclear(t_list **lst);
 #endif	

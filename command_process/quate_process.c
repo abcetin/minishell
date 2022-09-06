@@ -9,10 +9,12 @@ int	dolar_sign(char *str)
 	temp = NULL;
 	while (str[i])
 	{
-		if (str[i] != '$' && str[i] != '_' && !ft_isalpha(str[i]))
+		if (str[i] != '$' && !ft_isalpha(str[i]))
 			break;
 		i++;
 	}
+	if (str[i] == '?')
+		return (exit_status(i, 1, NULL) + 1);
 	temp = ft_substr(str, 0, i);
 	if (getenv(&temp[1]) == NULL)
 			return (i);
@@ -21,22 +23,19 @@ int	dolar_sign(char *str)
 	return(i);
 }
 
-void print_all(char *str)
+void print_all(char *str, int quote)
 {
 	int		i;
-	int		quote;
 
 	i = 0;
-	quote = 0;
-	//str = clear_quote(str);
 	while (str[i] != '\0')
 	{
-		if (str[i] == 34 || str[i] == 39)
-			quote = str[i];
 		if (str[i] == '$' && quote != 39)
 			i +=  dolar_sign(&str[i]);
 		else
+		{
 			write(STDOUT_FILENO, &str[i], 1);
-		i++;
+			i++;
+		}
 	}
 }

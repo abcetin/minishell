@@ -13,13 +13,24 @@ char *rl_gets(char *str, const char *prompt)
 	return (str);
 }
 
+void handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		//rl_replace_line("", 0);
+	}
+}
+
 void loop(void)
 {
 	char *input;
 	char *user;
 
+	signal(SIGINT, &handler);
 	input = NULL;
-	getenv("LOGNAME");
 	user = ft_strjoin("\033[0;36m", getenv("LOGNAME"));
 	user = ft_strjoin2(user, " %\e[0m ");
 	while (1)
@@ -27,16 +38,17 @@ void loop(void)
 		input = rl_gets(input, user);
 		if (!input)
 		{
-			write(2, "\nexit\n", 6);
+			write(2, "exit\n", 6);
 			exit(0);
 		}
 		parse_string(input);
 	}
 }
 
+
 int main(void)
 {
-
+	
 	loop();
-	// parse_string("cat minishell.c | cat files4");
+	//parse_string("export as_1=!");
 }

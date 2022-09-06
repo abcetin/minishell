@@ -14,13 +14,14 @@ static int where_env(char *s2)
 		if (ft_strstr(env[0], temp[0]))
 		{
 			ft_free_double(env);
-			break;
+			ft_free_double(temp);
+			return (i);
 		}
 		ft_free_double(env);
 		i++;
 	}
 	ft_free_double(temp);
-	return (i);
+	return (0);
 }
 
 void env(t_cmd cmd)
@@ -30,41 +31,30 @@ void env(t_cmd cmd)
 	i = 0;
 	if (cmd.command)
 	{
-		write(STDOUT_FILENO, "with no options\n", 16);
+		exit_status(1, 0, "with no options\n");
 		return;
 	}
 	while (environ[i])
 		printf("%s\n", environ[i++]);
+	exit_status(0, 0, NULL);
 }
-static int is_alnum(char *str)
-{
-	int i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
-		i++;
-	}
-	return (1);
-}
 int check_env_arg(t_cmd cmd)
 {
 	char **arg;
-	// if ((*cmd)->option != NULL)
-	// {
-	// 	write(STDOUT_FILENO, "with no options\n", 15);
-	// 	return (0);
-	// }
+	t_list *lst;
+
+	lst = cmd.command;
+	if (lst_find(&lst, "-"))
+		return (exit_status(1, 0, "with no options\n"));
 	arg = split2(cmd.command->content, '=');
-	if (!ft_strchr2(cmd.command->content, '=') || !arg[1] || !is_alnum(arg[0]))
+	if (!ft_strchr2(cmd.command->content, '=') || !arg[1] || !is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
 	{
-		printf("'%s' not a valid identifier\n", cmd.command->content);
-		return (0);
+		ft_free_double(arg);
+		return (exit_status(1, 0, "not a valid identifier\n"));
 	}
 	ft_free_double(arg);
-	return (1);
+	return (exit_status(0, 0, NULL));
 }
 
 void export(t_cmd cmd)
@@ -75,50 +65,59 @@ void export(t_cmd cmd)
 	if (!cmd.command)
 	{
 		env(cmd);
-		return ;
-	}
-	if (!check_env_arg(cmd))
 		return;
-	count = 0;
-	while (environ[count])
-		count++;
+	}
+	if (check_env_arg(cmd))
+		return;
+	count = ft_double_strlen(environ);
 	while (cmd.command)
 	{
 		arg_index = where_env(cmd.command->content);
-		if (arg_index == count)
+		if (!arg_index)
 		{
-			environ[count++] = ft_strdup(cmd.command->content);
-			environ[count] = NULL;
+			environ = ft_realloc(environ, sizeof(char *) * (count + 2));
+			environ[count] = ft_strdup(cmd.command->content);
+			environ[++count] = NULL;
 		}
 		else
 			environ[arg_index] = ft_strdup(cmd.command->content);
 		cmd.command = cmd.command->next;
 	}
+	exit_status(0, 0, NULL);
 }
 
-// void unset(t_cmd **cmd)
-// {
-// 	int i;
-// 	int j;
-// 	int count;
+void free_env(char *arg)
+{
+	int	i;
+	int j;
 
-// 	i = 0;
-// 	count = 0;
-// 	j = 0;
-// 	while (environ[count])
-// 		count++;
-// 	i = where_env();
-// 	if (i == count)
-// 		return;
-// 	count = 0;
-// 	while (environ[j])
-// 	{
-// 		if (i != j)
-// 		{
-// 			environ[count] = environ[j];
-// 			count++;
-// 		}
-// 		j++;
-// 	}
-// 	environ[count] = NULL;
-// }
+	j = 0;
+	i = 0;
+	if (!where_env(arg))
+		return ;
+	while (environ[j])
+	{
+		if (i == where_env(arg))
+		{
+			free(environ[j]);
+			j++;
+		}
+		environ[i] = environ[j];
+		i++;
+		j++;
+	}
+	environ[i] = NULL;
+}
+
+void unset(t_cmd cmd)
+{
+	char *temp;
+
+	temp = NULL;
+	while (cmd.command)
+	{
+		free_env(cmd.command->content);
+		cmd.command = cmd.command->next;
+	}
+	exit_status(0, 0, NULL);
+}

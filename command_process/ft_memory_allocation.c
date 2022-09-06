@@ -5,7 +5,7 @@ void ft_free_double(char **pointer)
 	int i;
 
 	i = 0;
-	if (!pointer || !pointer)
+	if (!*pointer)
 		return;
 	while (pointer[i])
 	{
@@ -23,4 +23,16 @@ void ft_free_int(int **pointer, int count)
 	while (i <= count)
 		free(pointer[i++]);
 	free(pointer);
+}
+
+void	*ft_realloc(void *ptr, size_t size)
+{
+	char *new_ptr;
+
+	if (!ptr)
+		return(malloc(size));
+	new_ptr = malloc(size);
+	ft_memmove(new_ptr, ptr, size);
+	free(ptr);
+	return(new_ptr);
 }

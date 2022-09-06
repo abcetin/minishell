@@ -26,17 +26,17 @@ void ft_echo(t_cmd cmd)
 		new_line = check_option(&cmd.command);
 	if (!cmd.command)
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		return;
+		exit_status(0, 0, "\n");
+		return ;
 	}
 	while (cmd.command)
 	{
 		cmd.command->content = clear_quote(cmd.command->content);
-		print_all(cmd.command->content);
+		print_all(cmd.command->content, first_quote(cmd.command->content));
 		if (cmd.command->next != NULL)
 			write(STDOUT_FILENO, " ", 1);
 		cmd.command = cmd.command->next;
 	}
 	if (new_line == 0)
-		write(STDOUT_FILENO, "\n", 1);
+		exit_status(0, 0, "\n");
 }

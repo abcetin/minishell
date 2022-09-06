@@ -1,15 +1,25 @@
 #include "../minishell.h"
 
-void lst_find(t_list **lst, void *data)
+int lst_find(t_list **lst, void *data)
 {
+	int i;
+	int size;
+
+	size = ft_lstsize(*lst);
+	i = 0;
 	if (!*lst)
-		return;
+		return (0);
 	while (*lst)
 	{
-		if (!ft_strstr((*lst)->content, data))
+		if (ft_strstr((*lst)->content, data) || !ft_strncmp((*lst)->content, data, ft_strlen(data)))
+			(*lst) = (*lst)->next;
+		else
 			break;
-		(*lst) = (*lst)->next;
+		i++;
 	}
+	if (size == i)
+		return(1);
+	return(0);
 }
 
 void	add_to_list(char **temp, t_list **cmd)

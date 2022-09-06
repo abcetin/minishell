@@ -26,9 +26,9 @@ void set_funcs(t_functions *func)
 	func[2] = (t_functions){{(void *)exit_f}, "exit"};
 	func[3] = (t_functions){{(void *)env}, "env"};
 	func[4] = (t_functions){{(void *)export}, "export"};
-	//func[5] = (t_functions){{(void *)unset}, "unset"};
-	func[5] = (t_functions){{(void *)ft_echo}, "echo"};
-	func[6] = (t_functions){{NULL}, NULL};
+	func[5] = (t_functions){{(void *)unset}, "unset"};
+	func[6] = (t_functions){{(void *)ft_echo}, "echo"};
+	func[7] = (t_functions){{NULL}, NULL};
 }
 
 void get_func(t_cmd cmd)
@@ -36,12 +36,12 @@ void get_func(t_cmd cmd)
 	int i;
 	int ret;
 	char *command;
-	t_functions function[7];
+	t_functions function[8];
 
 	i = 0;
 	ret = 0;
 	set_funcs(function);
-	command = to_lower_str(ft_strtrim(cmd.cmd, " "));
+	command = clear_quote(to_lower_str(ft_strtrim(cmd.cmd, " ")));
 	while (function[i].arg != NULL)
 	{
 		if (ft_strstr(function[i].arg, command))
@@ -52,7 +52,7 @@ void get_func(t_cmd cmd)
 		}
 		i++;
 	}
-	 free(command);
+	free(command);
 	if (ret == 0)
 		ft_execve(cmd);
 }

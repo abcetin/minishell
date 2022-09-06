@@ -27,6 +27,14 @@
         "optional": "c",
         "complex": "c",
         "memory": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "history.h": "c",
+        "dirent.h": "c",
+        "rltypedefs.h": "c",
+        "readline.h": "c",
+        "keymaps.h": "c",
+        "stdio.h": "c",
+        "rlstdc.h": "c",
+        "wait.h": "c"
     }
 }

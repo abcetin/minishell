@@ -30,7 +30,10 @@ char **join_cmd(char *cmd, t_list *lst)
 	str = (char **)malloc(sizeof(char *) * (ft_lstsize(lst) + 2));
 	str[0] = update_cmd(cmd);
 	if (!str[0])
+	{
+		free(str);
 		return (NULL);
+	}
 	while (lst)
 	{
 		if (ft_strchr2(lst->content, 34) || ft_strchr2(lst->content, 39))
@@ -46,13 +49,12 @@ int ft_execve(t_cmd cmd)
 {
 	int pid;
 	char **arg;
+	int ret;
 
+	ret = 0;
 	arg = join_cmd(cmd.cmd, cmd.command);
 	if (!arg)
-	{
-		printf("command not found\n");
-		return (0);
-	}
+		return(exit_status(127, 0, "command not found\n"));
 	pid = fork();
 	if (pid == 0)
 	{
@@ -60,7 +62,7 @@ int ft_execve(t_cmd cmd)
 			perror("");
 		exit(0);
 	}
-	wait(NULL);
+	waitpid(pid, &ret, 0);
 	ft_free_double(arg);
-	return (0);
+	return (exit_status(0, 0, NULL));
 }

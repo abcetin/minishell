@@ -1,34 +1,5 @@
 #include "../minishell.h"
 
-char *sequence(char *str) // bunu kontrol et
-{
-	char **temp;
-	char *ret;
-	int i;
-
-	i = 0;
-	ret = NULL;
-	temp = ft_split(str, '/');
-	while (temp[i])
-	{
-		if (temp[i][0] == '$')
-		{
-			temp[i] = getenv(&temp[i][1]);
-			if (!temp[i])
-			{
-				perror("");
-				return (NULL);
-			}
-		}
-		ret = ft_strjoin2(ret, temp[i]);
-		if (temp[i + 1])
-			ret = ft_strjoin2(ret, "/");
-		i++;
-	}
-	ft_free_double(temp);
-	return (ret);
-}
-
 int ft_isspace(char str)
 {
 	if (str == 32)
@@ -77,11 +48,26 @@ char *ft_strjoin2(char *s1, char *s2)
 	return (str);
 }
 
-int ft_strchr2(char *s, int c)
+int	ft_double_strlen(char **str)
 {
-	while (*s != '\0' && (char)c != *s)
-		s++;
-	if ((char)c == *s)
-		return (1);
-	return (0);
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return(i);
+}
+
+int find_char(char *str, int c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			break;
+		i++;
+	}
+	return (i);
 }
