@@ -1,5 +1,5 @@
 #include "../minishell.h"
-#include <string.h>
+
 char *sequence(char *str)
 {
 	char **temp;
@@ -39,7 +39,7 @@ void cd(t_cmd cmd)
 		free(cmd.command->content);
 		cmd.command->content = sequence(temp);
 		free(temp);
-	} //******************buna bak
+	}
 	if (cmd.command == NULL)
 		chdir(getenv("HOME"));
 	else

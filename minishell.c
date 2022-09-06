@@ -20,7 +20,7 @@ void handler(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 	}
 }
 
@@ -50,5 +50,5 @@ int main(void)
 {
 	
 	loop();
-	//parse_string("export as_1=!");
+	//parse_string("echo $TEST$TEST=lol$TEST\"\"lol");
 }

@@ -8,7 +8,6 @@ void pwd(t_cmd cmd)
 	if (cmd.command)
 	{
 		exit_status(1, 0, "too many arguments\n");
-		printf("with no options \n");
 		return;
 	}
 	cwd =  getcwd(cwd, sizeof(cwd));

@@ -7,11 +7,10 @@ int	dolar_sign(char *str)
 
 	i = 0;
 	temp = NULL;
-	while (str[i])
+	while (str[++i])
 	{
-		if (str[i] != '$' && !ft_isalpha(str[i]))
+		if (str[i] != '_' && !ft_isalnum(str[i]))
 			break;
-		i++;
 	}
 	if (str[i] == '?')
 		return (exit_status(i, 1, NULL) + 1);
@@ -30,7 +29,9 @@ void print_all(char *str, int quote)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' && quote != 39)
+		if (str[i] == quote)
+			i++;
+		else if (str[i] == '$' && quote != 39)
 			i +=  dolar_sign(&str[i]);
 		else
 		{

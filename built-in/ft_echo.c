@@ -20,6 +20,7 @@ void ft_echo(t_cmd cmd)
 {
 	int i;
 	int new_line;
+	int quote;
 
 	i = 0;
 	if (cmd.command)
@@ -31,8 +32,8 @@ void ft_echo(t_cmd cmd)
 	}
 	while (cmd.command)
 	{
-		cmd.command->content = clear_quote(cmd.command->content);
-		print_all(cmd.command->content, first_quote(cmd.command->content));
+		quote = first_quote(cmd.command->content);
+		print_all(cmd.command->content, quote);
 		if (cmd.command->next != NULL)
 			write(STDOUT_FILENO, " ", 1);
 		cmd.command = cmd.command->next;

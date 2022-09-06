@@ -1,29 +1,5 @@
 #include "../minishell.h"
 
-static int where_env(char *s2)
-{
-	int i;
-	char **temp;
-	char **env;
-
-	i = 0;
-	temp = split2(s2, '=');
-	while (environ[i])
-	{
-		env = split2(environ[i], '=');
-		if (ft_strstr(env[0], temp[0]))
-		{
-			ft_free_double(env);
-			ft_free_double(temp);
-			return (i);
-		}
-		ft_free_double(env);
-		i++;
-	}
-	ft_free_double(temp);
-	return (0);
-}
-
 void env(t_cmd cmd)
 {
 	int i;
@@ -39,27 +15,36 @@ void env(t_cmd cmd)
 	exit_status(0, 0, NULL);
 }
 
-int check_env_arg(t_cmd cmd)
+void add_env(char *env, int env_index)
 {
-	char **arg;
-	t_list *lst;
+	int count;
+	char **temp2;
 
-	lst = cmd.command;
-	if (lst_find(&lst, "-"))
-		return (exit_status(1, 0, "with no options\n"));
-	arg = split2(cmd.command->content, '=');
-	if (!ft_strchr2(cmd.command->content, '=') || !arg[1] || !is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
+	count = ft_double_strlen(environ);
+	if (!env_index)
 	{
-		ft_free_double(arg);
-		return (exit_status(1, 0, "not a valid identifier\n"));
+		environ = ft_realloc(environ, sizeof(char *) * (count + 2));
+		environ[count] = ft_strdup(env);
+		environ[count + 1] = NULL;
 	}
-	ft_free_double(arg);
-	return (exit_status(0, 0, NULL));
+	else
+	{
+		if (ft_strchr2(env, '+'))
+		{
+			temp2 = ft_split(env, '=');
+			environ[env_index] = ft_strjoin2(environ[env_index], temp2[1]);
+			ft_free_double(temp2);
+		}
+		else
+		{
+			free(environ[env_index]);
+			environ[env_index] = ft_strdup(env);
+		}
+	}
 }
 
 void export(t_cmd cmd)
 {
-	int count;
 	int arg_index;
 
 	if (!cmd.command)
@@ -69,51 +54,17 @@ void export(t_cmd cmd)
 	}
 	if (check_env_arg(cmd))
 		return;
-	count = ft_double_strlen(environ);
 	while (cmd.command)
 	{
 		arg_index = where_env(cmd.command->content);
-		if (!arg_index)
-		{
-			environ = ft_realloc(environ, sizeof(char *) * (count + 2));
-			environ[count] = ft_strdup(cmd.command->content);
-			environ[++count] = NULL;
-		}
-		else
-			environ[arg_index] = ft_strdup(cmd.command->content);
+		add_env(cmd.command->content, arg_index);
 		cmd.command = cmd.command->next;
 	}
 	exit_status(0, 0, NULL);
 }
 
-void free_env(char *arg)
-{
-	int	i;
-	int j;
-
-	j = 0;
-	i = 0;
-	if (!where_env(arg))
-		return ;
-	while (environ[j])
-	{
-		if (i == where_env(arg))
-		{
-			free(environ[j]);
-			j++;
-		}
-		environ[i] = environ[j];
-		i++;
-		j++;
-	}
-	environ[i] = NULL;
-}
-
 void unset(t_cmd cmd)
 {
-	char *temp;
-
-	temp = NULL;
 	while (cmd.command)
 	{
 		free_env(cmd.command->content);

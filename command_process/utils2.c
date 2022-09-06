@@ -7,7 +7,7 @@ int is_alnum(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')
 			return (0);
 		i++;
 	}
@@ -19,10 +19,12 @@ int ft_strchr2(char *s, int c)
 	int i;
 
 	i = 0;
-	while (s[i] != '\0' && (char)c != s[i])
-		i++;;
-	if ((char)c == s[i])
-		return (1);
+	while (s[i] != '\0')
+	{
+		if ((char)c == s[i])
+			return (1);
+		i++;
+	}
 	return (0);
 }
 

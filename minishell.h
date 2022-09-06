@@ -45,7 +45,7 @@ void		unset(t_cmd cmd);
 void		cd(t_cmd cmd);
 void		pwd(t_cmd cmd);
 void		ft_echo(t_cmd cmd);
-int		ft_execve(t_cmd cmd);
+int			ft_execve(t_cmd cmd);
 
 //-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
@@ -70,7 +70,6 @@ int			dolar_sign(char *str);
 int			quote_state(char *str, int pos);
 int			word_count(char *str, char c);
 void		parse_string(char *str);
-int 		redirect(char *cmd);
 char		*where(char *cmd);
 void		ft_free_int(int **pointer, int count);
 int			ft_strchr2(char *s, int c);
@@ -79,8 +78,12 @@ void		*ft_realloc(void *ptr, size_t size);
 int			is_alnum(char *str);
 int			find_char(char *str, int c);
 int			exit_status(int status, int flag, char *message);
+int			where_env(char *s2);
+int			check_env_arg(t_cmd cmd);
+void		free_env(char *arg);
 
 //------------------redirect-------------------//
+int 		redirect(char *cmd);
 int			is_exist_file(char *path);
 int			open_file(char *path);
 void		clear_file(char *path);
