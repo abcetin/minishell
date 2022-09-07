@@ -25,7 +25,7 @@ void	with_pipe(char *str)
 		cmd[i] = ft_strtrim(cmd[i], " ");
 		if (!cmd[i] || !ft_strlen(cmd[i]))
 		{
-			perror("Syntax error near unexpected toke '|'\n");
+			exit_status(258 * 256, 0, "syntax error near unexpected token '|'\n");
 			ft_free_double(cmd);
 			return ;
 		}

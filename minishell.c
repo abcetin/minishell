@@ -32,22 +32,9 @@ void	handler(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 	}
 }
-
-// int	chechk_syntax(char *str)
-// {
-// 	int	i;
-// 	int	ret;
-
-// 	ret = 0;
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if ()
-// 	}
-// }
 
 void	loop(void)
 {
@@ -66,6 +53,8 @@ void	loop(void)
 			write(2, "exit\n", 6);
 			exit(0);
 		}
+		else if (check_syntax(input))
+			continue ;
 		parse_string(input);
 	}
 }

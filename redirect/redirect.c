@@ -38,6 +38,8 @@ int	choose_redirect(char **command, char **delimeter)
 	return (0);
 }
 
+
+
 int	redirect(char *cmd)
 {
 	char	**tmp;
