@@ -1,31 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pipe.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:07:01 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:08:31 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void ft_multiple_close(int **fd, int len)
+void	ft_multiple_close(int **fd, int len)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (i < len)
 	{
-
 		if (j == 2)
 		{
 			j = 0;
 			i++;
 			if (i == len)
-				break;
+				break ;
 		}
 		if (close(fd[i][j]) < 0)
 			perror("close ");
 		j++;
 	}
 }
-int **ft_multiple_fd(int count)
+
+int	**ft_multiple_fd(int count)
 {
-	int i;
-	int **fd;
+	int	i;
+	int	**fd;
 
 	i = 0;
 	fd = malloc(sizeof(int *) * count + 1);
@@ -51,7 +63,7 @@ int **ft_multiple_fd(int count)
 
 int	ft_fork(void)
 {
-	int pid;
+	int	pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -59,11 +71,12 @@ int	ft_fork(void)
 		perror("pid ");
 		return (-1);
 	}
-	return(pid);
+	return (pid);
 }
+
 void	multiple_waitpid(int *pid, int count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < count)
@@ -72,11 +85,12 @@ void	multiple_waitpid(int *pid, int count)
 		i++;
 	}
 }
-void ft_pipe(char **cmd, int count)
+
+void	ft_pipe(char **cmd, int count)
 {
 	int	**fd;
 	int	*pid;
-	int i;
+	int	i;
 
 	pid = malloc(sizeof(int) * count + 1);
 	fd = ft_multiple_fd(count + 1);
@@ -86,7 +100,7 @@ void ft_pipe(char **cmd, int count)
 		pid[i] = ft_fork();
 		if (pid[i] == 0)
 		{
-			if  (i > 0)
+			if (i > 0)
 				dup2(fd[i - 1][0], STDIN_FILENO);
 			if (i != count)
 				dup2(fd[i][1], STDOUT_FILENO);

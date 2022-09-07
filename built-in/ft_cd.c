@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:48:15 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:49:01 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-char *sequence(char *str)
+char	*sequence(char *str)
 {
-	char **temp;
-	char *ret;
-	int i;
+	char	**temp;
+	char	*ret;
+	int		i;
 
 	ret = NULL;
 	temp = split2(str, '/');
@@ -13,7 +25,7 @@ char *sequence(char *str)
 	{
 		if (temp[i][0] == '$')
 		{
-			ret = ft_strjoin2(ret, getenv(&temp[i][1])) ;
+			ret = ft_strjoin2(ret, getenv(&temp[i][1]));
 			if (!ret)
 			{
 				perror("");
@@ -28,9 +40,9 @@ char *sequence(char *str)
 	return (ret);
 }
 
-void cd(t_cmd cmd)
+void	cd(t_cmd cmd)
 {
-	char *temp;
+	char	*temp;
 
 	temp = NULL;
 	if (cmd.command != NULL && ft_strchr2(cmd.command->content, '$'))

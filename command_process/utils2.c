@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:04:13 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:04:44 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int is_alnum(char *str)
+int	is_alnum(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -14,9 +26,9 @@ int is_alnum(char *str)
 	return (1);
 }
 
-int ft_strchr2(char *s, int c)
+int	ft_strchr2(char *s, int c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != '\0')
@@ -28,16 +40,16 @@ int ft_strchr2(char *s, int c)
 	return (0);
 }
 
-int is_exist_file(char *path)
+int	is_exist_file(char *path)
 {
 	if (access(path, F_OK) == -1)
 		return (0);
 	return (1);
 }
 
-int open_file(char *path)
+int	open_file(char *path)
 {
-	int fd;
+	int	fd;
 
 	if (!path)
 		return (-1);
@@ -53,9 +65,10 @@ int open_file(char *path)
 	return (fd);
 }
 
-void clear_file(char *path)
+void	clear_file(char *path)
 {
-	int fd;
+	int	fd;
+
 	fd = open(path, O_TRUNC);
 	if (fd < 0)
 		perror("");

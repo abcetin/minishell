@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   left_redirect.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:08:41 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:09:13 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void singel_left_redirect(char *file)
+void	singel_left_redirect(char *file)
 {
-	int fd;
-	char *temp;
+	int		fd;
+	char	*temp;
 
 	temp = ft_strtrim(file, " ");
 	fd = open(temp, O_RDONLY);
@@ -14,11 +26,11 @@ void singel_left_redirect(char *file)
 	close(fd);
 }
 
-void double_left_redirect(char *eof)
+void	double_left_redirect(char *eof)
 {
-	char *str;
-	char *input;
-	int fd;
+	char	*str;
+	char	*input;
+	int		fd;
 
 	input = NULL;
 	str = NULL;
@@ -29,7 +41,7 @@ void double_left_redirect(char *eof)
 	{
 		input = readline(">");
 		if (ft_strstr(input, eof))
-			break;
+			break ;
 		input = ft_strjoin2(input, "\n");
 		str = ft_strjoin2(str, input);
 		free(input);

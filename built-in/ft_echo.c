@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:49:06 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:50:51 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int check_option(t_list **lst)
+int	check_option(t_list **lst)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 0;
 	ret = 0;
@@ -16,11 +28,11 @@ int check_option(t_list **lst)
 		return (0);
 }
 
-void ft_echo(t_cmd cmd)
+void	ft_echo(t_cmd cmd)
 {
-	int i;
-	int new_line;
-	int quote;
+	int	i;
+	int	new_line;
+	int	quote;
 
 	i = 0;
 	if (cmd.command)

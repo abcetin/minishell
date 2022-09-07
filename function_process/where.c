@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   where.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:06:17 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:06:53 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int find_path(char *path, char *cmd)
+int	find_path(char *path, char *cmd)
 {
-	struct dirent *de;
-	DIR *dir;
+	struct dirent	*de;
+	DIR				*dir;
 
 	dir = opendir(path);
 	if (dir == NULL)
@@ -11,23 +23,25 @@ int find_path(char *path, char *cmd)
 		printf("Could not open current directory");
 		return (0);
 	}
-	while ((de = readdir(dir)))
+	de = readdir(dir);
+	while (de)
 	{
 		if (ft_strstr(de->d_name, cmd))
 		{
 			closedir(dir);
 			return (1);
 		}
+		de = readdir(dir);
 	}
 	closedir(dir);
 	return (0);
 }
 
-char *where(char *cmd)
+char	*where(char *cmd)
 {
-	char **temp;
-	char *ret;
-	int i;
+	char	**temp;
+	char	*ret;
+	int		i;
 
 	ret = NULL;
 	temp = ft_split(getenv("PATH"), ':');
@@ -41,5 +55,5 @@ char *where(char *cmd)
 		}
 	}
 	ft_free_double(temp);
-	return(ret);
+	return (ret);
 }

@@ -35,6 +35,7 @@
         "keymaps.h": "c",
         "stdio.h": "c",
         "rlstdc.h": "c",
-        "wait.h": "c"
+        "wait.h": "c",
+        "fcntl.h": "c"
     }
 }

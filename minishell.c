@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:12:04 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-char *rl_gets(char *str, const char *prompt)
+char	*rl_gets(char *str, const char *prompt)
 {
 	if (str)
 	{
@@ -13,7 +25,7 @@ char *rl_gets(char *str, const char *prompt)
 	return (str);
 }
 
-void handler(int sig)
+void	handler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -24,10 +36,10 @@ void handler(int sig)
 	}
 }
 
-void loop(void)
+void	loop(void)
 {
-	char *input;
-	char *user;
+	char	*input;
+	char	*user;
 
 	signal(SIGINT, &handler);
 	input = NULL;
@@ -45,10 +57,7 @@ void loop(void)
 	}
 }
 
-
-int main(void)
+int	main(void)
 {
-	
 	loop();
-	//parse_string("echo $TEST$TEST=lol$TEST\"\"lol");
 }

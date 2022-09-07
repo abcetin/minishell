@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:10:59 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int choose_redirect(char **command, char **delimeter)
+int	choose_redirect(char **command, char **delimeter)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	j = -1;
@@ -15,7 +27,7 @@ int choose_redirect(char **command, char **delimeter)
 	while (delimeter[++i])
 	{
 		if (j == i && delimeter[i + 1] != NULL)
-			continue;
+			continue ;
 		if (ft_strstr(delimeter[i], ">"))
 			single_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], ">>"))
@@ -26,11 +38,11 @@ int choose_redirect(char **command, char **delimeter)
 	return (0);
 }
 
-int redirect(char *cmd)
+int	redirect(char *cmd)
 {
-	char **tmp;
-	char **delimeter;
-	int pid;
+	char	**tmp;
+	char	**delimeter;
+	int		pid;
 
 	tmp = redirect_split(cmd);
 	tmp = join_redirect(tmp);

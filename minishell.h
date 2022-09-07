@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:29:22 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -9,12 +21,10 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-#include <dirent.h>
-#include <string.h>
+# include <dirent.h>
 # include "./libft/libft.h"
 
-extern char **environ;
-
+extern char	**environ;
 
 typedef struct s_cmd
 {
@@ -34,12 +44,12 @@ typedef struct s_functions
 }	t_functions;
 
 //-------------main process--------------//
-void		loop();
+void		loop(void);
 //char		*rl_gets(char *str, const char *prompt);
 
 //-------------built-in--------------//
-void 		env(t_cmd cmd);
-void 		exit_f(t_cmd cmd);
+void		env(t_cmd cmd);
+void		exit_f(t_cmd cmd);
 void		export(t_cmd cmd);
 void		unset(t_cmd cmd);
 void		cd(t_cmd cmd);
@@ -49,11 +59,10 @@ int			ft_execve(t_cmd cmd);
 
 //-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
-void 		ft_multiple_close(int **fd, int len);
+void		ft_multiple_close(int **fd, int len);
 int			ft_fork(void);
-int 		**ft_multiple_fd(int count);
+int			**ft_multiple_fd(int count);
 char		*ft_strjoin2(char *s1, char *s2);
-char		*ft_read(int fd);
 void		ft_pipe(char **cmd, int count);
 void		ft_free_double(char **pointer);
 char		*sequence(char *str);
@@ -63,7 +72,6 @@ char		*clear_quote(char *str);
 int			char_count(char *str, char c);
 int			first_quote(char *str);
 void		print_all(char *str, int quote);
-int			ft_isspace(char str);
 void		set_funcs(t_functions *func);
 void		get_func(t_cmd cmd);
 int			dolar_sign(char *str);
@@ -76,14 +84,13 @@ int			ft_strchr2(char *s, int c);
 int			ft_double_strlen(char **str);
 void		*ft_realloc(void *ptr, size_t size);
 int			is_alnum(char *str);
-int			find_char(char *str, int c);
 int			exit_status(int status, int flag, char *message);
 int			where_env(char *s2);
 int			check_env_arg(t_cmd cmd);
 void		free_env(char *arg);
 
 //------------------redirect-------------------//
-int 		redirect(char *cmd);
+int			redirect(char *cmd);
 int			is_exist_file(char *path);
 int			open_file(char *path);
 void		clear_file(char *path);
@@ -99,7 +106,7 @@ void		singel_left_redirect(char *file);
 void		double_left_redirect(char *eof);
 
 //-----------------------------------------------------//
-void	add_to_list(char **temp, t_list **cmd);
-int		lst_find(t_list **lst, void *data);
-void	lstclear(t_list **lst);
+void		add_to_list(char **temp, t_list **cmd);
+int			lst_find(t_list **lst, void *data);
+void		lstclear(t_list **lst);
 #endif	

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:55:02 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:55:57 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int lst_find(t_list **lst, void *data)
+int	lst_find(t_list **lst, void *data)
 {
-	int i;
-	int size;
+	int	i;
+	int	size;
 
 	size = ft_lstsize(*lst);
 	i = 0;
@@ -11,20 +23,21 @@ int lst_find(t_list **lst, void *data)
 		return (0);
 	while (*lst)
 	{
-		if (ft_strstr((*lst)->content, data) || !ft_strncmp((*lst)->content, data, ft_strlen(data)))
+		if (ft_strstr((*lst)->content, data)
+			|| !ft_strncmp((*lst)->content, data, ft_strlen(data)))
 			(*lst) = (*lst)->next;
 		else
-			break;
+			break ;
 		i++;
 	}
 	if (size == i)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 void	add_to_list(char **temp, t_list **cmd)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (temp[i])

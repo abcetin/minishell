@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:53:01 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:53:21 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void pwd(t_cmd cmd)
+void	pwd(t_cmd cmd)
 {
-	char *cwd;
+	char	*cwd;
 
 	cwd = NULL;
 	if (cmd.command)
 	{
 		exit_status(1, 0, "too many arguments\n");
-		return;
+		return ;
 	}
-	cwd =  getcwd(cwd, sizeof(cwd));
+	cwd = getcwd(cwd, sizeof(cwd));
 	printf("%s\n", cwd);
 	free(cwd);
 }

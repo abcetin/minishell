@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_string.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:57:31 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void with_pipe(char *str)
+void	with_pipe(char *str)
 {
-	int count;
-	char **cmd;
+	int		count;
+	char	**cmd;
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
-
 	ft_pipe(cmd, count);
 	ft_free_double(cmd);
 }
 
-void parse_string(char *str)
+void	parse_string(char *str)
 {
-	char **temp;
-	t_cmd cmd;
+	char	**temp;
+	t_cmd	cmd;
 
 	temp = NULL;
 	if (!ft_strlen(str))
-		return;
+		return ;
 	if (char_count(str, '|'))
 		with_pipe(str);
 	else if (ft_strchr2(str, '>') || ft_strchr2(str, '<'))

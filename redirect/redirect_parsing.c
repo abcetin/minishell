@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_parsing.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:09:17 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:10:30 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int red_count(char *str)
+int	red_count(char *str)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	ret = 0;
 	i = 0;
@@ -19,27 +31,27 @@ int red_count(char *str)
 	return (ret);
 }
 
-int cut_red(char *dst, char **src)
+int	cut_red(char *dst, char **src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (dst[i])
 	{
 		if ((dst[i] == '<' || dst[i] == '>') && !quote_state(dst, i))
-			break;
+			break ;
 		i++;
 	}
 	*src = ft_substr(dst, 0, i);
 	return (i);
 }
 
-char **redirect_split(char *str)
+char	**redirect_split(char *str)
 {
-	char **ret;
-	int i;
-	int ret_index;
-	int len;
+	char	**ret;
+	int		i;
+	int		ret_index;
+	int		len;
 
 	i = 0;
 	ret_index = -1;
@@ -56,11 +68,11 @@ char **redirect_split(char *str)
 	return (ret);
 }
 
-char **join_redirect(char **cmd)
+char	**join_redirect(char **cmd)
 {
-	int i;
-	int j;
-	char **temp;
+	int		i;
+	int		j;
+	char	**temp;
 
 	i = 1;
 	while (cmd[i])
@@ -81,13 +93,13 @@ char **join_redirect(char **cmd)
 	return (cmd);
 }
 
-char **redirect_delimiter(char *cmd)
+char	**redirect_delimiter(char *cmd)
 {
-	int i;
-	int j;
-	int len;
-	int count;
-	char **str;
+	int		i;
+	int		j;
+	int		len;
+	int		count;
+	char	**str;
 
 	str = malloc(sizeof(char *) * red_count(cmd));
 	i = 0;

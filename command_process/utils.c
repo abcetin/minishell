@@ -1,34 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:02:35 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:28:03 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int ft_isspace(char str)
+char	*ft_strjoin2(char *s1, char *s2)
 {
-	if (str == 32)
-		return (1);
-	else if (str == '\t')
-		return (1);
-	return (0);
-}
-
-char *ft_read(int fd)
-{
-	char *str;
-	char *buff;
-
-	buff = (char *)ft_calloc(1, 2);
-	if (!buff)
-		return (NULL);
-	str = NULL;
-	while (read(fd, buff, 1) > 0)
-		str = ft_strjoin2(str, buff);
-	free(buff);
-	return (str);
-}
-
-char *ft_strjoin2(char *s1, char *s2)
-{
-	char *str;
-	int i;
-	int j;
+	char	*str;
+	int		i;
+	int		j;
 
 	i = -1;
 	j = 0;
@@ -50,24 +38,10 @@ char *ft_strjoin2(char *s1, char *s2)
 
 int	ft_double_strlen(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	return(i);
-}
-
-int find_char(char *str, int c)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			break;
-		i++;
-	}
 	return (i);
 }

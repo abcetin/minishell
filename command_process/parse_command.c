@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:56:02 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:56:41 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int word_count(char *str, char c)
+int	word_count(char *str, char c)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 0;
 	ret = 0;
@@ -19,27 +31,27 @@ int word_count(char *str, char c)
 	return (ret);
 }
 
-int cut_str(char *dst, char **src, char c)
+int	cut_str(char *dst, char **src, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (dst[i])
 	{
 		if (dst[i] == c && !quote_state(dst, i))
-			break;
+			break ;
 		i++;
 	}
 	*src = ft_substr(dst, 0, i);
 	return (i);
 }
 
-char **split2(char *str, char c)
+char	**split2(char *str, char c)
 {
-	int i;
-	int len;
-	char **ret;
-	int ret_index;
+	int		i;
+	int		len;
+	char	**ret;
+	int		ret_index;
 
 	len = -1;
 	ret_index = -1;

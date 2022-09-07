@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memory_allocation.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:53:28 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 09:54:12 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void ft_free_double(char **pointer)
+void	ft_free_double(char **pointer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!*pointer)
-		return;
+		return ;
 	while (pointer[i])
 	{
 		free(pointer[i]);
@@ -15,9 +27,9 @@ void ft_free_double(char **pointer)
 	free(pointer);
 }
 
-void ft_free_int(int **pointer, int count)
+void	ft_free_int(int **pointer, int count)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= count)
@@ -27,12 +39,12 @@ void ft_free_int(int **pointer, int count)
 
 void	*ft_realloc(void *ptr, size_t size)
 {
-	char *new_ptr;
+	char	*new_ptr;
 
 	if (!ptr)
-		return(malloc(size));
+		return (malloc(size));
 	new_ptr = malloc(size);
 	ft_memmove(new_ptr, ptr, size);
 	free(ptr);
-	return(new_ptr);
+	return (new_ptr);
 }

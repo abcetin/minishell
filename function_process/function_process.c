@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   function_process.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 10:04:53 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:05:40 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-static char *to_lower_str(char *str)
+static char	*to_lower_str(char *str)
 {
-	int i;
-	char *ret;
+	int		i;
+	char	*ret;
 
 	i = 0;
 	if (!str)
@@ -18,8 +30,7 @@ static char *to_lower_str(char *str)
 	return (ret);
 }
 
-
-void set_funcs(t_functions *func)
+void	set_funcs(t_functions *func)
 {
 	func[0] = (t_functions){{(void *)pwd}, "pwd"};
 	func[1] = (t_functions){{(void *)cd}, "cd"};
@@ -31,12 +42,12 @@ void set_funcs(t_functions *func)
 	func[7] = (t_functions){{NULL}, NULL};
 }
 
-void get_func(t_cmd cmd)
+void	get_func(t_cmd cmd)
 {
-	int i;
-	int ret;
-	char *command;
-	t_functions function[8];
+	int			i;
+	int			ret;
+	char		*command;
+	t_functions	function[8];
 
 	i = 0;
 	ret = 0;
@@ -48,7 +59,7 @@ void get_func(t_cmd cmd)
 		{
 			function[i].func.func_name(cmd);
 			ret = 1;
-			break;
+			break ;
 		}
 		i++;
 	}

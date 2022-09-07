@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environment.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
+/*   Updated: 2022/09/07 10:00:26 by acetin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void env(t_cmd cmd)
+void	env(t_cmd cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd.command)
 	{
 		exit_status(1, 0, "with no options\n");
-		return;
+		return ;
 	}
 	while (environ[i])
 		printf("%s\n", environ[i++]);
 	exit_status(0, 0, NULL);
 }
 
-void add_env(char *env, int env_index)
+void	add_env(char *env, int env_index)
 {
-	int count;
-	char **temp2;
+	int		count;
+	char	**temp2;
 
 	count = ft_double_strlen(environ);
 	if (!env_index)
@@ -43,17 +55,17 @@ void add_env(char *env, int env_index)
 	}
 }
 
-void export(t_cmd cmd)
+void	export(t_cmd cmd)
 {
-	int arg_index;
+	int	arg_index;
 
 	if (!cmd.command)
 	{
 		env(cmd);
-		return;
+		return ;
 	}
 	if (check_env_arg(cmd))
-		return;
+		return ;
 	while (cmd.command)
 	{
 		arg_index = where_env(cmd.command->content);
@@ -63,7 +75,7 @@ void export(t_cmd cmd)
 	exit_status(0, 0, NULL);
 }
 
-void unset(t_cmd cmd)
+void	unset(t_cmd cmd)
 {
 	while (cmd.command)
 	{
