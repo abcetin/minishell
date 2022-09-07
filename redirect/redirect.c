@@ -6,36 +6,61 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:35:32 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 17:11:31 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int create_file(char **files, char **delimeter)
+{
+	int i;
+	int fd;
+
+	i = 0;
+	while (files[i])
+	{
+		files[i] = ft_strtrim(files[i], " ");
+		if (!is_exist_file(files[i]) && !ft_strchr(delimeter[i], '<'))
+		{
+			fd = open(files[i], O_CREAT, 0666);
+			if (fd < 0)
+			{
+				perror("");
+				return (fd);
+			}
+			close(fd);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	choose_redirect(char **command, char **delimeter)
 {
 	int	i;
 	int	j;
+	int ret;
 
 	i = -1;
 	j = -1;
 	while (delimeter[++j])
 	{
-		if (ft_strstr(delimeter[j], "<<"))
-			double_left_redirect(command[j]);
+		if (ft_strstr(delimeter[j], "<<")) // bu patladı bak
+			ret = double_left_redirect(command[j]);
 	}
 	while (delimeter[++i])
 	{
 		if (j == i && delimeter[i + 1] != NULL)
 			continue ;
 		if (ft_strstr(delimeter[i], ">"))
-			single_right_redirect(command[i]);
+			ret = single_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], ">>"))
-			double_right_redirect(command[i]);
+			ret = double_right_redirect(command[i]);
 		else if (ft_strstr(delimeter[i], "<"))
-			singel_left_redirect(command[i]);
+			ret = singel_left_redirect(command[i]);
 	}
-	return (0);
+	return (ret);
 }
 
 int	redirect(char *cmd)
@@ -52,8 +77,8 @@ int	redirect(char *cmd)
 	pid = fork();
 	if (pid == 0)
 	{
-		choose_redirect(&tmp[1], delimeter);
-		parse_string(tmp[0]);
+		if (create_file(&tmp[1], delimeter) > 0 && choose_redirect(&tmp[1], delimeter) > 0)
+			parse_string(tmp[0]);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);

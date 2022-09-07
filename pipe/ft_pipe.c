@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:07:01 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:38:36 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 17:05:18 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	run(char **cmd, int count)
 
 void	ft_pipe(char **cmd, int count)
 {
-	if (count == 1)
+	if (ft_double_strlen(cmd) == 1)
 		parse_string(cmd[0]);
 	else
 		run(cmd, count);

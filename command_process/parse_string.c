@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:58:21 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 17:02:16 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ void	with_pipe(char *str)
 {
 	int		count;
 	char	**cmd;
-	int		i = -1;
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	ft_pipe(cmd, count);
 	ft_free_double(cmd);
 }
+// if (char_count(str, '>') || char_count(str, '<'))
+// 		redirect(str);
+// 	else
 
 void	parse_string(char *str)
 {
@@ -32,9 +34,7 @@ void	parse_string(char *str)
 	temp = NULL;
 	if (!ft_strlen(str))
 		return ;
-	if (char_count(str, '>') || char_count(str, '<'))
-		redirect(str);
-	else if (char_count(str, '|'))
+	 if (char_count(str, '|'))
 		with_pipe(str);
 	else
 	{

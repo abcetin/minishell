@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:04:13 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 11:10:47 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 16:38:14 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ int	is_exist_file(char *path)
 
 int	open_file(char *path)
 {
-	int	fd;
+	int	fd = 0;
 
 	if (!path)
 		return (-1);
 	if (!is_exist_file(path))
 		fd = open(path, O_RDWR | O_CREAT);
 	else
-		fd = open(path, O_APPEND | O_RDWR);
-	if (fd == -1)
+		fd = open(path, O_WRONLY | O_APPEND);
+	if (fd < 0)
 	{
 		perror("");
-		return (0);
+		return (fd);
 	}
 	return (fd);
 }

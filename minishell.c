@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:59:30 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 17:01:55 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,6 @@ void	handler(int sig)
 	}
 }
 
-// int	chechk_syntax(char *str)
-// {
-// 	int	i;
-// 	int	ret;
-
-// 	ret = 0;
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if ()
-// 	}
-// }
-
 void	loop(void)
 {
 	char	*input;
@@ -73,4 +60,5 @@ void	loop(void)
 int	main(void)
 {
 	loop();
+	//printf("%d\n", chechk_syntax("echo a  | | > a"));
 }
