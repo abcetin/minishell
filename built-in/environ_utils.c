@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:46:04 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:46:16 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:14:06 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,37 +46,57 @@ int	check_env_arg(t_cmd cmd)
 
 	lst = cmd.command;
 	if (lst_find(&lst, "-"))
-		return (exit_status(1, 0, "with no options\n"));
+		return (exit_status(256, 0, "with no options\n"));
 	arg = split2(cmd.command->content, '=');
-	if (!ft_strchr2(cmd.command->content, '=')
-		|| !is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
+	if (!is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
 	{
 		ft_free_double(arg);
-		return (exit_status(1, 0, "not a valid identifier\n"));
+		return (exit_status(256, 0, "not a valid identifier\n"));
 	}
 	ft_free_double(arg);
 	return (exit_status(0, 0, NULL));
 }
 
-void	free_env(char *arg)
+static void	norm1(char **a)
 {
-	int	i;
-	int	j;
+	char	*temp;
 
-	j = 0;
-	i = 0;
-	if (!where_env(arg))
-		return ;
-	while (environ[j])
+	temp = NULL;
+	temp = clear_char(*a, '+');
+	*a = ft_strdup(temp);
+	free(temp);
+}
+
+static void	norm2(char *env, int env_index)
+{
+	char	**temp2;
+
+	temp2 = ft_split(env, '=');
+	environ[env_index] = ft_strjoin2(environ[env_index], temp2[1]);
+	ft_free_double(temp2);
+}
+
+void	add_env(char *env, int env_index)
+{
+	int		count;
+
+	count = ft_double_strlen(environ);
+	if (!env_index)
 	{
-		if (i == where_env(arg))
-		{
-			free(environ[j]);
-			j++;
-		}
-		environ[i] = environ[j];
-		i++;
-		j++;
+		if (ft_strchr2(env, '='))
+			norm1(&env);
+		environ = ft_realloc(environ, sizeof(char *) * (count + 2));
+		environ[count] = ft_strdup(env);
+		environ[count + 1] = NULL;
 	}
-	environ[i] = NULL;
+	else
+	{
+		if (ft_strchr2(env, '+'))
+			norm2(env, env_index);
+		else
+		{
+			free(environ[env_index]);
+			environ[env_index] = ft_strdup(env);
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:53:01 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:53:21 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 10:50:27 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pwd(t_cmd cmd)
 	cwd = NULL;
 	if (cmd.command)
 	{
-		exit_status(1, 0, "too many arguments\n");
+		exit_status(256, 0, "too many arguments\n");
 		return ;
 	}
 	cwd = getcwd(cwd, sizeof(cwd));

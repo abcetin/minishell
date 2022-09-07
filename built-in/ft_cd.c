@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:48:15 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:49:01 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:12:56 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ void	cd(t_cmd cmd)
 		chdir(getenv("HOME"));
 	else
 	{
-		cmd.command->content = clear_quote(cmd.command->content);
+		cmd.command->content = clear_char(cmd.command->content,
+				first_quote(cmd.command->content));
 		if (chdir(cmd.command->content) < 0)
 		{
-			exit_status(1, 0, NULL);
+			exit_status(256, 0, NULL);
 			perror("");
 			return ;
 		}

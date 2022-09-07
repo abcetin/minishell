@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:04:13 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:04:44 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 11:10:47 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_alnum(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '+')

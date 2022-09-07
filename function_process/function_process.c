@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:04:53 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:05:40 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:13:17 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	get_func(t_cmd cmd)
 	i = 0;
 	ret = 0;
 	set_funcs(function);
-	command = clear_quote(to_lower_str(ft_strtrim(cmd.cmd, " ")));
+	command = clear_char(to_lower_str(ft_strtrim(cmd.cmd, " ")),
+			first_quote(cmd.cmd));
 	while (function[i].arg != NULL)
 	{
 		if (ft_strstr(function[i].arg, command))

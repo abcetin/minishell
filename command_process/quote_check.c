@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:57:34 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:58:50 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:04:45 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	char_count(char *str, char c)
 	return (ret);
 }
 
-char	*clear_quote(char *str)
+char	*clear_char(char *str, char c)
 {
 	int		i;
 	int		j;
@@ -74,14 +74,14 @@ char	*clear_quote(char *str)
 	int		len;
 	int		quote_len;
 
-	quote_len = char_count(str, 34) + char_count(str, 39);
+	quote_len = char_count(str, c);
 	len = ft_strlen(str);
 	ret = (char *)ft_calloc(sizeof(char), (len - quote_len) + 1);
 	i = -1;
 	j = 0;
 	while (str[++i])
 	{
-		if (str[i] == first_quote(str))
+		if (str[i] == c)
 			continue ;
 		else
 			ret[j++] = str[i];

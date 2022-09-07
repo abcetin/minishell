@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:30:23 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:14:56 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		ft_free_double(char **pointer);
 char		*sequence(char *str);
 char		**split2(char *str, char c);
 int			ft_strstr(char *s1, char *s2);
-char		*clear_quote(char *str);
+char		*clear_char(char *str, char c);
 int			char_count(char *str, char c);
 int			first_quote(char *str);
 void		print_all(char *str, int quote);
@@ -88,6 +88,7 @@ int			exit_status(int status, int flag, char *message);
 int			where_env(char *s2);
 int			check_env_arg(t_cmd cmd);
 void		free_env(char *arg);
+void		add_env(char *env, int env_index);
 
 //------------------redirect-------------------//
 int			redirect(char *cmd);

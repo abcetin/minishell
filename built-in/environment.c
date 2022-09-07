@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:00:26 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 12:14:37 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	env(t_cmd cmd)
 	i = 0;
 	if (cmd.command)
 	{
-		exit_status(1, 0, "with no options\n");
+		exit_status(256, 0, "with no options\n");
 		return ;
 	}
 	while (environ[i])
@@ -27,32 +27,27 @@ void	env(t_cmd cmd)
 	exit_status(0, 0, NULL);
 }
 
-void	add_env(char *env, int env_index)
+void	free_env(char *arg)
 {
-	int		count;
-	char	**temp2;
+	int	i;
+	int	j;
 
-	count = ft_double_strlen(environ);
-	if (!env_index)
+	j = 0;
+	i = 0;
+	if (!where_env(arg))
+		return ;
+	while (environ[j])
 	{
-		environ = ft_realloc(environ, sizeof(char *) * (count + 2));
-		environ[count] = ft_strdup(env);
-		environ[count + 1] = NULL;
-	}
-	else
-	{
-		if (ft_strchr2(env, '+'))
+		if (i == where_env(arg))
 		{
-			temp2 = ft_split(env, '=');
-			environ[env_index] = ft_strjoin2(environ[env_index], temp2[1]);
-			ft_free_double(temp2);
+			free(environ[j]);
+			j++;
 		}
-		else
-		{
-			free(environ[env_index]);
-			environ[env_index] = ft_strdup(env);
-		}
+		environ[i] = environ[j];
+		i++;
+		j++;
 	}
+	environ[i] = NULL;
 }
 
 void	export(t_cmd cmd)
@@ -69,7 +64,10 @@ void	export(t_cmd cmd)
 	while (cmd.command)
 	{
 		arg_index = where_env(cmd.command->content);
-		add_env(cmd.command->content, arg_index);
+		cmd.command->content = clear_char(cmd.command->content,
+				first_quote(cmd.command->content));
+		if (ft_strchr2(cmd.command->content, '='))
+			add_env(cmd.command->content, arg_index);
 		cmd.command = cmd.command->next;
 	}
 	exit_status(0, 0, NULL);

@@ -6,6 +6,10 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",
+                "-L",
+                "include/readline/8.1.2/lib",
+                "-I",
+                "include/readline/8.1.2/include",
                 //"ft_cat.c",
                 "./libft/*.c",
                 "./built-in/*.c",

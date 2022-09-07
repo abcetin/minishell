@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:51:06 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:52:37 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 11:21:18 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**join_cmd(char *cmd, t_list *lst)
 	while (lst)
 	{
 		if (ft_strchr2(lst->content, 34) || ft_strchr2(lst->content, 39))
-			lst->content = clear_quote(lst->content);
+			lst->content = clear_char(lst->content, first_quote(lst->content));
 		str[j++] = ft_strdup(lst->content);
 		lst = lst->next;
 	}
@@ -66,7 +66,7 @@ int	ft_execve(t_cmd cmd)
 	ret = 0;
 	arg = join_cmd(cmd.cmd, cmd.command);
 	if (!arg)
-		return (exit_status(127, 0, "command not found\n"));
+		return (exit_status(256 * 127, 0, "command not found\n"));
 	pid = fork();
 	if (pid == 0)
 	{
