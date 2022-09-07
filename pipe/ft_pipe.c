@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:07:01 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:08:31 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:25:05 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,11 @@ void	ft_pipe(char **cmd, int count)
 	int	*pid;
 	int	i;
 
+	if (count == 1)
+		parse_string(cmd[0]);
 	pid = malloc(sizeof(int) * count + 1);
-	fd = ft_multiple_fd(count + 1);
 	i = -1;
+	fd = ft_multiple_fd(count + 1);
 	while (++i <= count)
 	{
 		pid[i] = ft_fork();

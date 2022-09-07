@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:57:31 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:17:09 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ void	with_pipe(char *str)
 	ft_free_double(cmd);
 }
 
+int deneme(char *cmd)
+{
+	int j;
+	char	**tmp;
+	char	**delimeter;
+
+	tmp = redirect_split(cmd);
+	tmp = join_redirect(tmp);
+	delimeter = redirect_delimiter(cmd);
+	j = -1;
+	while (delimeter[++j])
+	{
+		if (ft_strstr(delimeter[j], "<<"))
+			double_left_redirect(tmp[j + 1]);
+	}
+	return(j);
+}
+
 void	parse_string(char *str)
 {
 	char	**temp;
@@ -31,10 +49,12 @@ void	parse_string(char *str)
 	temp = NULL;
 	if (!ft_strlen(str))
 		return ;
-	if (char_count(str, '|'))
-		with_pipe(str);
-	else if (ft_strchr2(str, '>') || ft_strchr2(str, '<'))
+	// if (ft_strncmp(str, "<<", 2))
+	// 	deneme(str);
+	if (char_count(str, '>') || char_count(str, '<'))
 		redirect(str);
+	else if (char_count(str, '|'))
+		with_pipe(str);
 	else
 	{
 		temp = split2(str, 32);

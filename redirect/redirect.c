@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:10:59 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:23:35 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,27 @@ int	choose_redirect(char **command, char **delimeter)
 int	redirect(char *cmd)
 {
 	char	**tmp;
+	char	**tmp2;
 	char	**delimeter;
 	int		pid;
 
-	tmp = redirect_split(cmd);
+	tmp2 = split2(cmd, '|');
+	tmp = redirect_split(tmp2[0]);
 	tmp = join_redirect(tmp);
 	delimeter = redirect_delimiter(cmd);
 	pid = fork();
 	if (pid == 0)
 	{
+		//int j = deneme(delimeter, &tmp[1]);
 		choose_redirect(&tmp[1], delimeter);
 		parse_string(tmp[0]);
 		exit(0);
 	}
-	wait(NULL);
+	waitpid(pid, NULL, 0);
+	if (char_count(cmd, '|'))
+		ft_pipe(&tmp2[1], ft_double_strlen(&tmp2[1]));
 	ft_free_double(tmp);
+	ft_free_double(tmp2);
 	ft_free_double(delimeter);
 	return (0);
 }
