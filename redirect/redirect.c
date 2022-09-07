@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:23:35 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:35:32 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	redirect(char *cmd)
 	pid = fork();
 	if (pid == 0)
 	{
-		//int j = deneme(delimeter, &tmp[1]);
 		choose_redirect(&tmp[1], delimeter);
 		parse_string(tmp[0]);
 		exit(0);

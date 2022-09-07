@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:57:34 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 12:04:45 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:48:32 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	quote_state(char *str, int pos)
 	quote = 0;
 	while (str[i] && i < pos)
 	{
-		if (str[i] == 34 || str[i] == 39)
+		if (!quote && (str[i] == 34 || str[i] == 39))
 			quote = str[i];
 		if (quote == str[i] && ret == 0)
 			ret = 1;
@@ -59,7 +59,7 @@ int	char_count(char *str, char c)
 	ret = 0;
 	while (str[i])
 	{
-		if (str[i] == c)
+		if (str[i] == c && !quote_state(str, i))
 			ret++;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 11:53:59 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 14:59:30 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void	handler(int sig)
 		rl_replace_line("", 0);
 	}
 }
+
+// int	chechk_syntax(char *str)
+// {
+// 	int	i;
+// 	int	ret;
+
+// 	ret = 0;
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if ()
+// 	}
+// }
 
 void	loop(void)
 {
