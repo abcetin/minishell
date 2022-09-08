@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:57:31 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 18:20:56 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	with_pipe(char *str)
 {
 	int		count;
 	char	**cmd;
+	int		i;
 
+	i = -1;
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	while (++i < count + 1)
@@ -41,10 +43,10 @@ void	parse_string(char *str)
 	temp = NULL;
 	if (!ft_strlen(str))
 		return ;
-	if (char_count(str, '|'))
-		with_pipe(str);
-	else if (char_count(str, '>') || char_count(str, '<'))
+	if (char_count(str, '>') || char_count(str, '<'))
 		redirect(str);
+	else if (char_count(str, '|'))
+		with_pipe(str);
 	else
 	{
 		temp = split2(str, 32);
