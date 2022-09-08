@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 17:01:55 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:08:37 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ void	loop(void)
 int	main(void)
 {
 	loop();
-	//printf("%d\n", chechk_syntax("echo a  | | > a"));
 }

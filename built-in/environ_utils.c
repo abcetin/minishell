@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:46:04 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 12:14:06 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:04:31 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	where_env(char *s2)
 		i++;
 	}
 	ft_free_double(temp);
-	return (0);
+	return (-1);
 }
 
 int	check_env_arg(t_cmd cmd)
