@@ -57,6 +57,9 @@ void		pwd(t_cmd cmd);
 void		ft_echo(t_cmd cmd);
 int			ft_execve(t_cmd cmd);
 
+//-------------syntax_controls--------------//
+int			check_syntax(char *str);
+
 //-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
 void		ft_multiple_close(int **fd, int len);

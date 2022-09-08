@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 17:08:37 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 10:51:44 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	loop(void)
 			write(2, "exit\n", 6);
 			exit(0);
 		}
+		else if (check_syntax(input))
+			continue ;
 		parse_string(input);
 	}
 }

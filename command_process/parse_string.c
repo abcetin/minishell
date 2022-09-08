@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 17:08:49 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/07 09:57:31 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ void	with_pipe(char *str)
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
+	while (++i < count + 1)
+	{
+		cmd[i] = ft_strtrim(cmd[i], " ");
+		if (!cmd[i] || !ft_strlen(cmd[i]))
+		{
+			exit_status(258 * 256, 0, "syntax error near unexpected token '|'\n");
+			ft_free_double(cmd);
+			return ;
+		}
+	}
 	ft_pipe(cmd, count);
 	ft_free_double(cmd);
 }
@@ -31,10 +41,10 @@ void	parse_string(char *str)
 	temp = NULL;
 	if (!ft_strlen(str))
 		return ;
-	if (char_count(str, '>') || char_count(str, '<'))
-		redirect(str);
-	else if (char_count(str, '|'))
+	if (char_count(str, '|'))
 		with_pipe(str);
+	else if (char_count(str, '>') || char_count(str, '<'))
+		redirect(str);
 	else
 	{
 		temp = split2(str, 32);
