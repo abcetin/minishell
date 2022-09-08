@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:35:32 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 10:52:08 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	choose_redirect(char **command, char **delimeter)
 	}
 	return (0);
 }
-
-
 
 int	redirect(char *cmd)
 {
