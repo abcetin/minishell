@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:49:06 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 09:50:51 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:52:07 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 int	check_option(t_list **lst)
 {
-	int	i;
-	int	ret;
-
-	i = 0;
-	ret = 0;
 	if (ft_strstr("-n", (*lst)->content))
 	{
 		lst_find(lst, "-n");
@@ -30,11 +25,9 @@ int	check_option(t_list **lst)
 
 void	ft_echo(t_cmd cmd)
 {
-	int	i;
 	int	new_line;
 	int	quote;
 
-	i = 0;
 	if (cmd.command)
 		new_line = check_option(&cmd.command);
 	if (!cmd.command)
