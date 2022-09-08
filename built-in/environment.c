@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 12:14:37 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:08:43 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,6 @@ void	env(t_cmd cmd)
 	while (environ[i])
 		printf("%s\n", environ[i++]);
 	exit_status(0, 0, NULL);
-}
-
-void	free_env(char *arg)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	if (!where_env(arg))
-		return ;
-	while (environ[j])
-	{
-		if (i == where_env(arg))
-		{
-			free(environ[j]);
-			j++;
-		}
-		environ[i] = environ[j];
-		i++;
-		j++;
-	}
-	environ[i] = NULL;
 }
 
 void	export(t_cmd cmd)
@@ -71,6 +48,26 @@ void	export(t_cmd cmd)
 		cmd.command = cmd.command->next;
 	}
 	exit_status(0, 0, NULL);
+}
+
+void	free_env(char *arg)
+{
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	if (where_env(arg) == -1)
+		return ;
+	while (environ[j])
+	{
+		if (i == where_env(arg))
+			j++;
+		environ[i] = environ[j];
+		i++;
+		j++;
+	}
+	environ[i] = NULL;
 }
 
 void	unset(t_cmd cmd)

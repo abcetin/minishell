@@ -16,7 +16,6 @@ void	with_pipe(char *str)
 {
 	int		count;
 	char	**cmd;
-	int		i = -1;
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');

@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 12:14:56 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 15:26:53 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,11 @@ int			cut_red(char *dst, char **src);
 char		**redirect_split(char *str);
 char		**join_redirect(char **cmd);
 char		**redirect_delimiter(char *cmd);
-void		right_redirect(char *file);
-void		single_right_redirect(char *file);
-void		double_right_redirect(char *file);
-void		singel_left_redirect(char *file);
-void		double_left_redirect(char *eof);
+int			right_redirect(char *file);
+int			single_right_redirect(char *file);
+int			double_right_redirect(char *file);
+int			singel_left_redirect(char *file);
+int			double_left_redirect(char *eof);
 
 //-----------------------------------------------------//
 void		add_to_list(char **temp, t_list **cmd);

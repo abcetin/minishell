@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:04:13 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 11:10:47 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:09:16 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	open_file(char *path)
 	if (!is_exist_file(path))
 		fd = open(path, O_RDWR | O_CREAT);
 	else
-		fd = open(path, O_APPEND | O_RDWR);
-	if (fd == -1)
+		fd = open(path, O_WRONLY | O_APPEND);
+	if (fd < 0)
 	{
 		perror("");
-		return (0);
+		return (exit_status(fd, 0, NULL));
 	}
-	return (fd);
+	return (exit_status(fd, 0, NULL));
 }
 
 void	clear_file(char *path)
@@ -73,6 +73,9 @@ void	clear_file(char *path)
 
 	fd = open(path, O_TRUNC);
 	if (fd < 0)
+	{
 		perror("");
+		exit_status(fd, 0, NULL);
+	}
 	close(fd);
 }

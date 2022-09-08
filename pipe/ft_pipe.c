@@ -6,13 +6,13 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:07:01 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 14:38:36 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/08 16:23:38 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	run(char **cmd, int count)
+void	ft_pipe(char **cmd, int count)
 {
 	int	**fd;
 	int	*pid;
@@ -39,12 +39,4 @@ static void	run(char **cmd, int count)
 	multiple_waitpid(pid, count + 1);
 	ft_free_int(fd, count + 1);
 	free(pid);
-}
-
-void	ft_pipe(char **cmd, int count)
-{
-	if (count == 1)
-		parse_string(cmd[0]);
-	else
-		run(cmd, count);
 }
