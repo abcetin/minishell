@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 17:14:05 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 17:54:14 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int			ft_execve(t_cmd cmd);
 
 //-------------syntax_controls--------------//
 int			check_syntax(char *str);
+int			check_right_r(int pos, char *str);
+int			check_right(int pos, char *str);
+int			determine_syntax(char *str, int i);
 
 //-------------utils--------------//
 void		multiple_waitpid(int *pid, int count);
@@ -115,4 +118,4 @@ void		run_heredoc(char **files, char **delimeter);
 void		add_to_list(char **temp, t_list **cmd);
 int			lst_find(t_list **lst, void *data);
 void		lstclear(t_list **lst);
-#endif	
+#endif
