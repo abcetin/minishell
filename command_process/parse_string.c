@@ -6,7 +6,7 @@
 /*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 18:20:56 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/09 13:09:32 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,9 @@ void	with_pipe(char *str)
 {
 	int		count;
 	char	**cmd;
-	int		i;
 
-	i = -1;
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
-	while (++i < count + 1)
-	{
-		cmd[i] = ft_strtrim(cmd[i], " ");
-		if (!cmd[i] || !ft_strlen(cmd[i]))
-		{
-			exit_status(258 * 256, 0, "syntax error near unexpected token '|'\n");
-			ft_free_double(cmd);
-			return ;
-		}
-	}
 	ft_pipe(cmd, count);
 	ft_free_double(cmd);
 }
