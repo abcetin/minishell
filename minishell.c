@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 10:51:44 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 17:16:40 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ void	handler(int sig)
 	}
 }
 
+void	heredoc(char *cmd)
+{
+	char	**tmp;
+	char	**delimeter;
+
+	if (!ft_strchr2(cmd, '<') && !ft_strchr2(cmd, '>'))
+		return ;
+	tmp = redirect_split(cmd);
+	tmp = join_redirect(tmp);
+	delimeter = redirect_delimiter(cmd);
+	run_heredoc(&tmp[1], delimeter);
+	ft_free_double(tmp);
+	ft_free_double(delimeter);
+}
+
+
 void	loop(void)
 {
 	char	*input;
@@ -55,11 +71,13 @@ void	loop(void)
 		}
 		else if (check_syntax(input))
 			continue ;
+		heredoc(input);
 		parse_string(input);
 	}
 }
 
 int	main(void)
 {
-	loop();
+	//loop();
+	parse_string("unset asd");
 }

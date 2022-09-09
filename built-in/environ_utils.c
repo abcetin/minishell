@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:46:04 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 17:04:31 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:57:45 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ int	where_env(char *s2)
 int	check_env_arg(t_cmd cmd)
 {
 	char	**arg;
-	t_list	*lst;
 
-	lst = cmd.command;
-	if (lst_find(&lst, "-"))
-		return (exit_status(256, 0, "with no options\n"));
 	arg = split2(cmd.command->content, '=');
 	if (!is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
 	{
@@ -81,7 +77,7 @@ void	add_env(char *env, int env_index)
 	int		count;
 
 	count = ft_double_strlen(environ);
-	if (!env_index)
+	if (env_index < 0)
 	{
 		if (ft_strchr2(env, '='))
 			norm1(&env);

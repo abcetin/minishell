@@ -6,7 +6,7 @@
 /*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 13:27:01 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/09 17:54:14 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ int			is_alnum(char *str);
 int			exit_status(int status, int flag, char *message);
 int			where_env(char *s2);
 int			check_env_arg(t_cmd cmd);
-void		free_env(char *arg);
+void		free_env(char *arg, char **temp);
 void		add_env(char *env, int env_index);
+void		with_pipe(char *str);
 
 //------------------redirect-------------------//
 int			redirect(char *cmd);
@@ -111,6 +112,7 @@ int			single_right_redirect(char *file);
 int			double_right_redirect(char *file);
 int			singel_left_redirect(char *file);
 int			double_left_redirect(char *eof);
+void		run_heredoc(char **files, char **delimeter);
 
 //-----------------------------------------------------//
 void		add_to_list(char **temp, t_list **cmd);

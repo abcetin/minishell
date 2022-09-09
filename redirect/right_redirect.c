@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:06 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 13:32:11 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 15:27:49 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	right_redirect(char *file)
 
 int	single_right_redirect(char *file)
 {
-	char	*temp;
 	int		ret;
+	char	*temp;
 
-	temp = ft_strtrim(file, " ");
+	temp = ft_strdup(file);
+	temp = clear_char(temp, 32);
 	clear_file(temp);
 	ret = right_redirect(temp);
 	free(temp);
@@ -39,10 +40,11 @@ int	single_right_redirect(char *file)
 
 int	double_right_redirect(char *file)
 {
-	char	*temp;
 	int		ret;
-	
-	temp = ft_strtrim(file, " ");
+	char	*temp;
+
+	temp = ft_strdup(file);
+	temp = clear_char(temp, 32);
 	ret = right_redirect(temp);
 	free(temp);
 	return (exit_status(ret, 0, NULL));

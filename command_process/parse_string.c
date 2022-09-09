@@ -6,7 +6,7 @@
 /*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 14:20:08 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/09 17:56:05 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	parse_string(char *str)
 
 	temp = NULL;
 	if (!ft_strlen(str))
-		return ;
-	if (char_count(str, '>') || char_count(str, '<'))
-		redirect(str);
-	else if (char_count(str, '|'))
+		return;
+	if (char_count(str, '|'))
 		with_pipe(str);
+	else if (char_count(str, '>') || char_count(str, '<'))
+		redirect(str);
 	else
 	{
 		temp = split2(str, 32);

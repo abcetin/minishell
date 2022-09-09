@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:48:07 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:50:45 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:36:43 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 int	exit_status(int status, int flag, char *message)
 {
-	static int	exit_status;
+	static int	ret;
+	char		*ret2;
 
+	ret2 = NULL;
 	if (flag == 1)
-		printf("%d", exit_status / 256);
+	{
+		ret2 = ft_itoa(ret / 256);
+		write(STDOUT_FILENO, ret2, ft_strlen(ret2));
+		free(ret2);
+	}
 	if (message)
 		printf("%s", message);
-	exit_status = status;
-	return (exit_status);
+	ret = status;
+	return (ret);
 }
