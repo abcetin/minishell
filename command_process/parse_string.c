@@ -6,7 +6,7 @@
 /*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 13:09:32 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/09 14:20:08 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	parse_string(char *str)
 	else
 	{
 		temp = split2(str, 32);
+		if (!temp[0])
+			return ;
 		cmd.command = NULL;
 		cmd.cmd = ft_strdup(temp[0]);
 		add_to_list(temp, &cmd.command);

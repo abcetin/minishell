@@ -94,7 +94,7 @@ int	check_syntax(char *str)
 	len = ft_strlen(str);
 	if (check_for_gr_le_signs(str, len, i))
 		return (1);
-	else if (check_for_pipe_syntax(str, i))
+	else if (char_count(str, '|') && check_for_pipe_syntax(str, i))
 		return (1);
 	return (0);
 }
