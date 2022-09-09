@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:08:41 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 16:51:12 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:21:22 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	singel_left_redirect(char *file)
 	fd = open(temp, O_RDWR);
 	if (fd < 0)
 	{
-		perror(file);
+		perror(temp);
+		free(temp);
 		exit_status(fd, 0, NULL);
 		fd = open("./redirect/no_such_file", O_RDONLY);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
-		free(temp);
 		return (-1);
 	}
-	free(temp);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 	return (exit_status(fd, 0, NULL));
@@ -48,12 +47,10 @@ static char	*heredoc_promt(char *eof)
 		if (ft_strstr(input, eof))
 			break ;
 		if (ft_strchr2(input, '$'))
-			str = ft_strjoin(getenv(&input[1]), "\n");
+			input = ft_strjoin(getenv(&input[1]), "\n");
 		else
-		{
 			input = ft_strjoin2(input, "\n");
-			str = ft_strjoin2(str, input);
-		}
+		str = ft_strjoin2(str, input);
 		free(input);
 	}
 	free(input);
@@ -67,8 +64,8 @@ int	double_left_redirect(char *eof)
 
 	str = NULL;
 	if (!eof || !ft_strlen(eof))
-		return (exit_status(-1, 0, "asd error\n"));
-	eof = ft_strtrim(eof, " ");
+		return (exit_status(-1, 0, "syntax error\n"));
+	eof = clear_char(eof, 32);
 	fd = open_file("./redirect/heredoc");
 	clear_file("./redirect/heredoc");
 	str = heredoc_promt(eof);

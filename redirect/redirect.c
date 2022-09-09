@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:10:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/08 10:52:08 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:24:03 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	create_file(char **files, char **delimeter)
 			fd = open(files[i], O_CREAT, 0666);
 			if (fd < 0)
 			{
-				perror("");
+				perror("create : ");
 				return (fd);
 			}
 			close(fd);
@@ -36,7 +36,7 @@ int	create_file(char **files, char **delimeter)
 	return (1);
 }
 
-void	run_heredoc(char **command, char **delimeter)
+void	run_heredoc(char **files, char **delimeter)
 {
 	int	j;
 	int	ret;
@@ -51,7 +51,7 @@ void	run_heredoc(char **command, char **delimeter)
 			pid = fork();
 			if (pid == 0)
 			{
-				if (double_left_redirect(command[j]) < 0)
+				if (double_left_redirect(files[j]) < 0)
 					exit(1);
 				exit(0);
 			}
@@ -76,7 +76,7 @@ int	choose_redirect(char **files, char **delimeter)
 		else if (ft_strstr(delimeter[i], "<"))
 			ret = singel_left_redirect(files[i]);
 		else if (ft_strstr(delimeter[i], "<<"))
-			singel_left_redirect("./redirect/heredoc");
+			ret = singel_left_redirect("./redirect/heredoc");
 	}
 	return (ret);
 }
@@ -93,7 +93,6 @@ int	redirect(char *cmd)
 	pid = fork();
 	if (pid == 0)
 	{
-		run_heredoc(&tmp[1], delimeter);
 		if (create_file(&tmp[1], delimeter) > 0)
 		{
 			choose_redirect(&tmp[1], delimeter);

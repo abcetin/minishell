@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:58:53 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 10:01:15 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:50:25 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	dolar_sign(char *str)
 
 	i = 0;
 	temp = NULL;
+	if (str[i + 1] == 32)
+		return(-1);
 	while (str[++i])
 	{
 		if (str[i] != '_' && !ft_isalnum(str[i]))
@@ -37,18 +39,22 @@ int	dolar_sign(char *str)
 void	print_all(char *str, int quote)
 {
 	int		i;
+	char	*temp;
 
 	i = 0;
-	while (str[i] != '\0')
+
+	temp = ft_strdup(str);
+	temp = clear_char(temp, quote);
+	while (temp[i] != '\0')
 	{
-		if (str[i] == quote)
-			i++;
-		else if (str[i] == '$' && quote != 39)
-			i += dolar_sign(&str[i]);
+		if (temp[i + 1] && temp[i] == '$'
+			&& quote != 39 && temp[i + 1] != 32)
+			i += dolar_sign(&temp[i]);
 		else
 		{
-			write(STDOUT_FILENO, &str[i], 1);
+			write(STDOUT_FILENO, &temp[i], 1);
 			i++;
 		}
 	}
+	free(temp);
 }

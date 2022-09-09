@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:09:17 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/07 12:27:07 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/09 16:44:23 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ char	**join_redirect(char **cmd)
 		temp = split2(cmd[i], 32);
 		while (temp[j])
 		{
-			cmd[0] = ft_strjoin(cmd[0], " ");
-			cmd[0] = ft_strjoin(cmd[0], temp[j]);
+			cmd[0] = ft_strjoin2(cmd[0], " ");
+			cmd[0] = ft_strjoin2(cmd[0], temp[j]);
 			free(cmd[i]);
 			cmd[i] = ft_strdup(temp[0]);
 			j++;
