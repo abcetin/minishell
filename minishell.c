@@ -25,6 +25,8 @@ char	*rl_gets(char *str, const char *prompt)
 	return (str);
 }
 
+
+
 void	handler(int sig)
 {
 	if (sig == SIGINT)
