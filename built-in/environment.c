@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 13:01:45 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:31:11 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,16 @@ void	export(t_cmd cmd)
 		view_export(-1, -1);
 		return;
 	}
-	if (check_env_arg(cmd))
-		return;
 	while (cmd.command)
 	{
-		arg_index = where_env(cmd.command->content);
-		cmd.command->content = clear_char(cmd.command->content,
-										  first_quote(cmd.command->content));
-		if (ft_strchr2(cmd.command->content, '='))
-			add_env(cmd.command->content, arg_index);
+		if (!check_env_arg(cmd))
+		{
+			arg_index = where_env(cmd.command->content);
+			cmd.command->content = clear_char(cmd.command->content,
+			first_quote(cmd.command->content));
+			if (ft_strchr2(cmd.command->content, '='))
+				add_env(cmd.command->content, arg_index);
+		}
 		cmd.command = cmd.command->next;
 	}
 	exit_status(0, 0, NULL);
@@ -126,6 +127,8 @@ void	unset(t_cmd cmd)
 {
 	while (cmd.command)
 	{
+		if (!is_alnum(cmd.command->content))
+			exit_status(256, 0, "not a valid identifier\n");
 		free_env(cmd.command->content);
 		cmd.command = cmd.command->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:48:07 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 16:36:43 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:33:16 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exit_status(int status, int flag, char *message)
 		free(ret2);
 	}
 	if (message)
-		printf("%s", message);
+		write(STDERR_FILENO, message, ft_strlen(message));
 	ret = status;
 	return (ret);
 }

@@ -68,18 +68,21 @@ int check_for_pipe_syntax(char *str, int i)
 {
 	char	**cmd;
 	int		count;
+	char	*temp;
 
 	count = char_count(str, '|');
 	cmd = split2(str, '|');
 	while (++i < count + 1)
 	{
-		cmd[i] = ft_strtrim(cmd[i], " ");
-		if (!cmd[i] || !ft_strlen(cmd[i]))
+		temp = ft_strtrim(cmd[i], " ");
+		if (!temp || !ft_strlen(temp))
 		{
 			exit_status(258 * 256, 0, "syntax error near unexpected token '|'\n");
+			free(temp);
 			ft_free_double(cmd);
 			return (1);
 		}
+		free(temp);
 	}
 	ft_free_double(cmd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:46:04 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 16:57:45 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:30:26 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ int	check_env_arg(t_cmd cmd)
 	char	**arg;
 
 	arg = split2(cmd.command->content, '=');
-	if (!is_alnum(arg[0]) || ft_isdigit(arg[0][0]))
+	if (!arg[0])
+	{
+		free((void *)arg);
+		return (exit_status(256, 0, "not a valid identifier\n"));
+	}
+	else if ((!is_alnum(arg[0]) || ft_isdigit(arg[0][0])))
 	{
 		ft_free_double(arg);
 		return (exit_status(256, 0, "not a valid identifier\n"));
