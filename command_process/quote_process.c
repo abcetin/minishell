@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <mhaksal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:58:53 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 16:50:25 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:07:58 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	dolar_sign(char *str)
 	i = 0;
 	temp = NULL;
 	if (str[i + 1] == 32)
-		return(-1);
+		return (-1);
 	while (str[++i])
 	{
 		if (str[i] != '_' && !ft_isalnum(str[i]))
@@ -42,7 +42,6 @@ void	print_all(char *str, int quote)
 	char	*temp;
 
 	i = 0;
-
 	temp = ft_strdup(str);
 	temp = clear_char(temp, quote);
 	while (temp[i] != '\0')

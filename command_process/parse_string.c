@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
+/*   By: mhaksal <mhaksal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 17:56:05 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/10 13:07:37 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_string(char *str)
 
 	temp = NULL;
 	if (!ft_strlen(str))
-		return;
+		return ;
 	if (char_count(str, '|'))
 		with_pipe(str);
 	else if (char_count(str, '>') || char_count(str, '<'))

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_control.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mhaksal <mhaksal@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/10 13:11:29 by mhaksal           #+#    #+#             */
+/*   Updated: 2022/09/10 13:13:04 by mhaksal          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 /*
@@ -48,23 +60,26 @@ int	check_for_gr_le_signs(char *str, int len, int i)
 			{
 				i++;
 				if (!check_right_r(i, str))
-					return (exit_status(258 * 256, 0, "syntax error near unexpected token 'newline'\n"));
+					return (exit_status(258 * 256, 0,
+							"syntax error near unexpected token 'newline'\n"));
 			}
 			else if (i < len && str[i + 1] == '<')
 			{
 				if (str[i++] == '>')
-					return (exit_status(258 * 256, 0, "syntax error near unexpected token '<'\n"));
+					return (exit_status(258 * 256, 0,
+							"syntax error near unexpected token '<'\n"));
 				if (!check_right_r(i, str))
-					return (exit_status(258 * 256, 0, "syntax error near unexpected token 'newline'\n"));
+					return (exit_status(258 * 256, 0,
+							"syntax error near unexpected token 'newline'\n"));
 			}
-			else if(determine_syntax(str, i))
+			else if (determine_syntax(str, i))
 				return (258 * 256);
 		}
 	}
 	return (0);
 }
 
-int check_for_pipe_syntax(char *str, int i)
+int	check_for_pipe_syntax(char *str, int i)
 {
 	char	**cmd;
 	int		count;
@@ -76,7 +91,8 @@ int check_for_pipe_syntax(char *str, int i)
 		cmd[i] = ft_strtrim(cmd[i], " ");
 		if (!cmd[i] || !ft_strlen(cmd[i]))
 		{
-			exit_status(258 * 256, 0, "syntax error near unexpected token '|'\n");
+			exit_status(258 * 256, 0,
+				"syntax error near unexpected token '|'\n");
 			ft_free_double(cmd);
 			return (1);
 		}
