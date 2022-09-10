@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhaksal <m.haksal@gmail.com>               +#+  +:+       +#+        */
+/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 17:54:14 by mhaksal          ###   ########.fr       */
+/*   Updated: 2022/09/10 11:27:53 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			is_alnum(char *str);
 int			exit_status(int status, int flag, char *message);
 int			where_env(char *s2);
 int			check_env_arg(t_cmd cmd);
-void		free_env(char *arg, char **temp);
+void		free_env(char *arg);
 void		add_env(char *env, int env_index);
 void		with_pipe(char *str);
 

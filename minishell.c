@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/09 17:16:40 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 11:34:24 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ void	loop(void)
 
 int	main(void)
 {
-	//loop();
-	parse_string("unset asd");
+	loop();
+	//parse_string("unset asd");
 }

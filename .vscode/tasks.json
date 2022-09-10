@@ -18,6 +18,7 @@
                 "./function_process/*.c",
                 "./pipe/*.c",
                 "./redirect/*.c",
+                "./syntax_control/*.c",
                 "-lreadline",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
