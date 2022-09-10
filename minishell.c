@@ -6,9 +6,10 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:33 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 11:34:24 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:00:53 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -24,8 +25,6 @@ char	*rl_gets(char *str, const char *prompt)
 		add_history(str);
 	return (str);
 }
-
-
 
 void	handler(int sig)
 {

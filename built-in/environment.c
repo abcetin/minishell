@@ -6,9 +6,10 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 12:58:18 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:01:45 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../minishell.h"
 
@@ -128,5 +129,4 @@ void	unset(t_cmd cmd)
 		free_env(cmd.command->content);
 		cmd.command = cmd.command->next;
 	}
-	exit_status(0, 0, NULL);
 }
