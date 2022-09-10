@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <mhaksal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:12:14 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 11:27:53 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:10:33 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		cd(t_cmd cmd);
 void		pwd(t_cmd cmd);
 void		ft_echo(t_cmd cmd);
 int			ft_execve(t_cmd cmd);
+void		free_env(char *arg);
 
 //-------------syntax_controls--------------//
 int			check_syntax(char *str);

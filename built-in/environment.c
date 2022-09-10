@@ -6,10 +6,9 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 13:31:11 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:46:14 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -21,7 +20,7 @@ void	env(t_cmd cmd)
 	if (cmd.command)
 	{
 		exit_status(256, 0, "with no options\n");
-		return;
+		return ;
 	}
 	while (environ[i])
 		printf("%s\n", environ[i++]);
@@ -30,7 +29,7 @@ void	env(t_cmd cmd)
 
 char	**ft_dub_dou(char **str)
 {
-	char	**return_val;
+	char			**return_val;
 	unsigned int	counter;
 
 	counter = 0;
@@ -59,7 +58,7 @@ void	view_export(int i, int j)
 		while (environ2[j])
 		{
 			if (ft_strncmp(environ2[i],
-						   environ2[j], ft_strlen(environ2[j])) > 0)
+					environ2[j], ft_strlen(environ2[j])) > 0)
 			{
 				temp = environ2[i];
 				environ2[i] = environ2[j];
@@ -82,7 +81,7 @@ void	export(t_cmd cmd)
 	if (!cmd.command)
 	{
 		view_export(-1, -1);
-		return;
+		return ;
 	}
 	while (cmd.command)
 	{
@@ -97,30 +96,6 @@ void	export(t_cmd cmd)
 		cmd.command = cmd.command->next;
 	}
 	exit_status(0, 0, NULL);
-}
-
-void	free_env(char *arg)
-{
-	char	**temp;
-	char	*temp2;
-
-	temp2 = NULL;
-	temp = environ;
-	if (where_env(arg) < 0)
-		return;
-	while (*environ != NULL)
-	{
-		if (!where_env(arg))
-			break;
-		environ++;
-	}
-	while (*environ != NULL)
-	{
-		if (*environ)
-			*environ = *(environ + 1);
-		environ++;
-	}
-	environ = temp;
 }
 
 void	unset(t_cmd cmd)

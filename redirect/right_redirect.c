@@ -22,7 +22,7 @@ int	right_redirect(char *file)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	return(exit_status(fd, 0, NULL));
+	return (exit_status(fd, 0, NULL));
 }
 
 int	single_right_redirect(char *file)

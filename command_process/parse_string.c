@@ -6,7 +6,7 @@
 /*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:56:52 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 13:39:25 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:45:07 by acetin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	parse_string(char *str)
 
 	temp = NULL;
 	if (!ft_strlen(str))
-		return;
+		return ;
 	if (char_count(str, '|'))
 		with_pipe(str);
 	else if (char_count(str, '>') || char_count(str, '<'))

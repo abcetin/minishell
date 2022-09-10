@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
 char	*rl_gets(char *str, const char *prompt)
@@ -52,7 +51,6 @@ void	heredoc(char *cmd)
 	ft_free_double(delimeter);
 }
 
-
 void	loop(void)
 {
 	char	*input;
@@ -80,5 +78,4 @@ void	loop(void)
 int	main(void)
 {
 	loop();
-	//parse_string("unset asd");
 }
