@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acetin <acetin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhaksal <mhaksal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 09:47:23 by acetin            #+#    #+#             */
-/*   Updated: 2022/09/10 13:46:14 by acetin           ###   ########.fr       */
+/*   Updated: 2022/09/10 13:48:37 by mhaksal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	export(t_cmd cmd)
 		{
 			arg_index = where_env(cmd.command->content);
 			cmd.command->content = clear_char(cmd.command->content,
-			first_quote(cmd.command->content));
+					first_quote(cmd.command->content));
 			if (ft_strchr2(cmd.command->content, '='))
 				add_env(cmd.command->content, arg_index);
 		}
